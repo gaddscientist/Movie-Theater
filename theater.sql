@@ -1,24 +1,17 @@
-DROP TABLE IF EXISTS employee;
-DROP TABLE IF EXISTS transaction;
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS theater;
-DROP TABLE IF EXISTS ticket;
-DROP TABLE IF EXISTS shows;
-DROP TABLE IF EXISTS cinema;
-DROP TABLE IF EXISTS person;
-DROP TABLE IF EXISTS home_address;
-DROP TABLE IF EXISTS movie;
+-- UNCOMMENT TO DELETE ALL TABLES BEFORE RECREAT
+-- DROP TABLE IF EXISTS employee;
+-- DROP TABLE IF EXISTS transaction;
+-- DROP TABLE IF EXISTS customer;
+-- DROP TABLE IF EXISTS theater;
+-- DROP TABLE IF EXISTS ticket;
+-- DROP TABLE IF EXISTS shows;
+-- DROP TABLE IF EXISTS cinema;
+-- DROP TABLE IF EXISTS home_address;
+-- DROP TABLE IF EXISTS movie;
 
 
-CREATE TABLE person (
-    person_id INT(6) AUTO_INCREMENT,
-    email VARCHAR(256) NOT NULL,
-    first_name VARCHAR(256) NOT NULL,
-    last_name VARCHAR(256) NOT NULL,
-    Phone VARCHAR(20) NOT NULL,
-    Birthdate DATE NOT NULL,
-    PRIMARY KEY (person_id)
-);
+
+
 
 CREATE TABLE home_address (
     address_id INT(6) AUTO_INCREMENT,
@@ -31,15 +24,19 @@ CREATE TABLE home_address (
 
 CREATE TABLE cinema (
     cinema_id INT(6) AUTO_INCREMENT,
-    manager_id INT(6),
+    manager_id INT(6) NOT NULL UNIQUE,
     location_address INT(6),
     Phone INT(10),
-    PRIMARY KEY (cinema_id),
-    FOREIGN KEY (manager_id) References person (person_id)
+    PRIMARY KEY (cinema_id)
 );
 
 CREATE TABLE employee (
     employee_id INT(6) AUTO_INCREMENT,
+    first_name VARCHAR(256) NOT NULL,
+    last_name VARCHAR(256) NOT NULL,
+    email VARCHAR(256) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Birthdate DATE NOT NULL,
     wage DECIMAL(8,2) CHECK (wage > 0),
     hire_date DATE NOT NULL,
     ssn INT(9) NOT NULL,
@@ -47,19 +44,22 @@ CREATE TABLE employee (
     store_number INT(6),
     manager_id INT(6),
     PRIMARY KEY (employee_id),
-    FOREIGN KEY (employee_id) References person (person_id),
     FOREIGN KEY (address_id) References home_address (address_id),
     FOREIGN KEY (store_number) References cinema (cinema_id)
 );
 
 CREATE TABLE customer (
     customer_id INT(6) AUTO_INCREMENT,
+    first_name VARCHAR(256) NOT NULL,
+    last_name VARCHAR(256) NOT NULL,
+    email VARCHAR(256) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Birthdate DATE NOT NULL,
     membership_number INT(6),
     join_date DATE,
     points INT(7),
     favorite_cinema INT(6),
     PRIMARY KEY (customer_id),
-    FOREIGN KEY (customer_id) References person (person_id),
     FOREIGN KEY (favorite_cinema) References cinema (cinema_id)
 );
 
@@ -159,3 +159,19 @@ Create Table works (
     FORIEGN KEY (employee_id) References employee (employee_id),
     FORIEGN KEY (cinema) References cinema (cinema_id)
 );
+
+CREATE TABLE person (
+    person_id INT(6) AUTO_INCREMENT,
+    first_name VARCHAR(256) NOT NULL,
+    last_name VARCHAR(256) NOT NULL,
+    email VARCHAR(256) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Birthdate DATE NOT NULL,
+    PRIMARY KEY (person_id)
+);
+
+INSERT INTO person VALUES ( 100, 'Steven', 'King', 'SKING@gmail.com', '515.123.4567', STR_TO_DATE('17-06-2003', '%d-%m-%Y'));
+INSERT INTO person VALUES ( 101, 'Neena', 'Kochhar', 'NKOCHHAR@gmail.com', '515.123.4568', STR_TO_DATE('21-09-2005', '%d-%m-%Y'));
+INSERT INTO person VALUES ( 102, 'Lex', 'De Haan', 'LDEHAAN@hotmail.com', '515.123.4569', STR_TO_DATE('13-01-2001', '%d-%m-%Y'));
+INSERT INTO person VALUES ( 103, 'Alexander', 'Hunold', 'AHUNOLD@protonmail.com', '590.423.4567', STR_TO_DATE('03-01-2006', '%d-%m-%Y'));
+INSERT INTO person VALUES ( 104, 'Bruce', 'Ernst', 'BERNST@gmail.com', '590.423.4568', STR_TO_DATE('21-05-2007', '%d-%m-%Y'));
