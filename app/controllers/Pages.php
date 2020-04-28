@@ -1,7 +1,6 @@
 <?php
     class Pages extends Controller {
         public function __construct() {
-
         }
 
         // Default method if no other is specified
