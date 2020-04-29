@@ -16,12 +16,18 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
+      <?php if(isset($_SESSION['manager_id'])) : ?>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/managers/logout">Logout</a>
+        </li>
+      <?php else : ?>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/managers/register">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/managers/login">Login</a>
         </li>
+      <?php endif; ?>
       </ul>
     </div>
   </div>

@@ -155,7 +155,8 @@
 
                         if($loggedInManager) {
                             // Create session variables
-                            die('Success');
+                            $this->createManagerSession($loggedInManager);
+                            
                         }
                         else {
                             // Sets error message
@@ -180,8 +181,29 @@
                 ];
 
                 // Load view
-                flash('register_success', 'You are registered and can log in!');
                 $this->view('managers/login', $data);
+            }
+        }
+
+        public function createManagerSession($manager) {
+            $_SESSION['manager_id'] = $manager->manager_id;
+            $_SESSION['manager_email'] = $manager->email;
+            redirect('pages/index');
+        }
+
+        public function logout() {
+            unset($_SESSION['manager_id']);
+            unset($_SESSION['manager_email']);
+            session_destroy();
+            redirect('managers/login');
+        }
+
+        public function isLoggedIn() {
+            if(isset($_SESSION['manager_id'])) {
+                return true;
+            }
+            else {
+                return false;
             }
         }
     }
