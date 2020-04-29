@@ -1,7 +1,9 @@
 <?php
     class Pages extends Controller {
         public function __construct() {
+            $this->managerModel = $this->model('Manager');
         }
+
 
         // Default method if no other is specified
         public function index() {

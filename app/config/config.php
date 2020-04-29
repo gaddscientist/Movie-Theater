@@ -1,4 +1,8 @@
 <?php
+    // Error reporting
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+
     // DB Params
     define('DB_HOST', '3.234.246.29');
     define('DB_USER', 'project_19');

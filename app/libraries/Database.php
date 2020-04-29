@@ -28,10 +28,10 @@ class Database {
 
         // Create PDO instance
         try {
-            $this->dbhHandler = new PDO($dsn, $this->user, $this->pass, $options);
+            $this->dbHandler = new PDO($dsn, $this->user, $this->pass, $options);
         }
         catch(PDOException $e) {
-            $this->error = e->getMessage();
+            $this->error = $e->getMessage();
             echo $this->error;
         }
     }
@@ -42,7 +42,7 @@ class Database {
 
     // Prepare statement with query
     public function query($sql) {
-        $this->stmt = $this->dbhandler->prepare($sql);
+        $this->stmt = $this->dbHandler->prepare($sql);
     }
 
     // Bind values

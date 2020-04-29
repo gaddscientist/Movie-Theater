@@ -1,7 +1,8 @@
 <?php
     class Managers extends Controller {
-        public function __constructor() {
-
+        // Models get loaded via the constructor
+        public function __construct() {
+            $this->managerModel = $this->model('Manager');
         }
 
         public function register() {
@@ -27,6 +28,13 @@
                 // Validate Email
                 if(empty($data['email'])) {
                     $data['email_err'] = 'Please enter email';
+                }
+                else {
+                    // Checks to see if email exists
+                    // Function returns true/false
+                    if($this->managerModel->findEmployeeByEmail($data['email'])) {
+                        $data['email_err'] = 'Email is already taken';
+                    }
                 }
 
                 // Validate Name
