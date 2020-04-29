@@ -1,13 +1,16 @@
 -- UNCOMMENT TO DELETE ALL TABLES BEFORE RECREAT
+SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS employee;
 DROP TABLE IF EXISTS transaction;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS theater;
 DROP TABLE IF EXISTS ticket;
 DROP TABLE IF EXISTS shows;
+DROP TABLE IF EXISTS manager;
 DROP TABLE IF EXISTS cinema;
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS movie;
+SET foreign_key_checks = 1;
 
 
 CREATE TABLE address (
@@ -33,10 +36,11 @@ INSERT INTO address VALUES ( 1009, '330 Magnolia Court Monroe', 'Township', 'NJ'
 
 CREATE TABLE cinema (
     cinema_id INT(6) AUTO_INCREMENT,
-    manager_id INT(6) NOT NULL UNIQUE,
-    location_address INT(6),
+    manager_id INT(6),
+    address_id INT(6),
     phone VARCHAR(256),
-    PRIMARY KEY (cinema_id)
+    PRIMARY KEY (cinema_id),
+    FOREIGN KEY (address_id) References address (address_id)
 );
 
 INSERT INTO cinema VALUES ( 2000, 100, 1000, '123.456.7890');
@@ -69,6 +73,8 @@ INSERT INTO employee VALUES ( 101, 'Neena', 'Kochhar', 'NKOCHHAR@gmail.com', '51
 INSERT INTO employee VALUES ( 102, 'Lex', 'De Haan', 'LDEHAAN@hotmail.com', '515.123.4569', STR_TO_DATE('08-05-1969', '%d-%m-%Y'), 17000, STR_TO_DATE('13-01-2001', '%d-%m-%Y'), '624539668', 1002, 2001, 100);
 INSERT INTO employee VALUES ( 103, 'Alexander', 'Hunold', 'AHUNOLD@protonmail.com', '590.423.4567', STR_TO_DATE('22-08-1980', '%d-%m-%Y'), 9000, STR_TO_DATE('03-01-2006', '%d-%m-%Y'), '558326446', 1003, 2002, 102);
 INSERT INTO employee VALUES ( 104, 'Bruce', 'Ernst', 'BERNST@gmail.com', '590.423.4568', STR_TO_DATE('12-04-1987', '%d-%m-%Y'), 6000, STR_TO_DATE('21-05-2007', '%d-%m-%Y'), '355795362', 1004, 2000, 103);
+
+ALTER TABLE cinema ADD (CONSTRAINT cine_mgr_fk FOREIGN KEY (manager_id) REFERENCES employee (employee_id));
 
 CREATE TABLE customer (
     customer_id INT(6) AUTO_INCREMENT,
@@ -183,7 +189,19 @@ INSERT INTO transaction VALUES ( 8003, 7004, 2002, 504, 'CREDIT', STR_TO_DATE('0
 INSERT INTO transaction VALUES ( 8004, 7001, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
 
 
+Create Table manager (
+    cinema_id INT(6),
+    manager_id INT(6),
+    username VARCHAR(256) UNIQUE, 
+    password VARCHAR(256),
+    PRIMARY KEY (cinema_id),
+    FOREIGN KEY (cinema_id) References cinema (cinema_id),
+    FOREIGN KEY (manager_id) References cinema (manager_id)
+);
 
+INSERT INTO manager VALUES (2000, 100, 'sking', 'admin');
+INSERT INTO manager VALUES (2001, 101, 'nkochhar', 'password1');
+INSERT INTO manager VALUES (2002, 102, 'ldehaan', 'password2');
 
 
 -- Are these even necessary???
@@ -196,15 +214,7 @@ FORIEGN KEY (Boss) References (Employee(ID)),
 FORIEGN KEY (Worker) References (Employee(ID))
 );
 
-Create Table Manager (
-Manager(int(10)),
-Cinema (int(10)),
-Username (Varchar(256)),
-Password (Varchar(256)),
-PRIMARY KEY (Manager),
-FORIEGN KEY (Manager) References (Employee(ID)),
-FORIEGN KEY (Cinema) References (Cinema(ID))
-);
+
 
 CREATE TABLE Favorite(
 Person (int(10)),
