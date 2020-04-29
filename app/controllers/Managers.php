@@ -15,14 +15,15 @@
 
                 // Init data
                 $data = [
-                    'name' => trim($_POST['name']),
                     'email' => trim($_POST['email']),
                     'password' => trim($_POST['password']),
                     'confirm_password' => trim($_POST['confirm_password']),
-                    'name_err' => '',
+                    'cinema_id' => trim($_POST['cinema_id']),
+                    'manager_id' => trim($_POST['manager_id']),
                     'email_err' => '',
                     'password_err' => '',
-                    'confirm_password_err' => ''
+                    'cinema_id_err' => '',
+                    'manager_id_err' => ''
                 ];
 
                 // Validate Email
@@ -32,14 +33,19 @@
                 else {
                     // Checks to see if email exists
                     // Function returns true/false
-                    if($this->managerModel->findEmployeeByEmail($data['email'])) {
+                    if($this->managerModel->findManagerByEmail($data['email'])) {
                         $data['email_err'] = 'Email is already taken';
                     }
                 }
 
-                // Validate Name
-                if(empty($data['name'])) {
-                    $data['name_err'] = 'Please enter name';
+                // Validate cinema_id 
+                if(empty($data['cinema_id'])) {
+                    $data['cinema_id_err'] = 'Please enter a Cinema ID Number';
+                }
+
+                // Validate manager_id 
+                if(empty($data['manager_id'])) {
+                    $data['manager_id_err'] = 'Please enter a Manager ID Number';
                 }
 
                 // Validate Password
@@ -65,7 +71,17 @@
                 if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) &&
                     empty($data['confirm_password_err'])) {
                         // Validated
-                        die('SUCCESS');
+
+                        // Hash Password
+                        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+                        // Register User
+                        if($this->managerModel->register($data)) {
+                            redirect('managers/login');
+                        }
+                        else {
+                            die('Something went wrong, user not registered');
+                        }
                 }
                 else {
                     // Load view with errors
@@ -75,14 +91,16 @@
             else {
                 // Init data 
                 $data = [
-                    'name' => '',
                     'email' => '',
                     'password' => '',
                     'confirm_password' => '',
-                    'name_err' => '',
+                    'cinema_id' => '',
+                    'manager_id' => '',
                     'email_err' => '',
                     'password_err' => '',
-                    'confirm_password_err' => ''
+                    'confirm_password_err' => '',
+                    'cinema_id_err' => '',
+                    'manager_id_err' => ''
                 ];
 
                 // Load view
@@ -119,10 +137,33 @@
                     $data['password_err'] = 'Password must be at least 6 characters';
                 }
 
+                // Check for username
+                if($this->managerModel->findManagerByEmail($data['email'])) {
+                    // Manager found 
+
+                }
+                else {
+                    // Manager not found
+                    $data['email_err'] = 'Email not found';
+                }
+
                 // Make sure errors are empty
                 if(empty($data['email_err']) && empty($data['password_err'])) {
                         // Validated
-                        die('SUCCESS');
+                        // Check and set logged in user
+                        $loggedInManager = $this->managerModel->login($data['email'], $data['password']);
+
+                        if($loggedInManager) {
+                            // Create session variables
+                            die('Success');
+                        }
+                        else {
+                            // Sets error message
+                            $data['password_err'] = 'Password incorrect';
+
+                            // Reloads view
+                            $this->view('managers/login', $data);
+                        }
                 }
                 else {
                     // Load view with errors
@@ -139,6 +180,7 @@
                 ];
 
                 // Load view
+                flash('register_success', 'You are registered and can log in!');
                 $this->view('managers/login', $data);
             }
         }

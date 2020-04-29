@@ -54,7 +54,7 @@ CREATE TABLE employee (
     employee_id INT(6) AUTO_INCREMENT,
     first_name VARCHAR(256) NOT NULL,
     last_name VARCHAR(256) NOT NULL,
-    email VARCHAR(256) NOT NULL,
+    email VARCHAR(256) NOT NULL UNIQUE,
     phone VARCHAR(20) NOT NULL,
     birthdate DATE NOT NULL,
     salary INT CHECK (salary > 0),
@@ -192,16 +192,17 @@ INSERT INTO transaction VALUES ( 8004, 7001, 2000, 503, 'CASH', STR_TO_DATE('29-
 Create Table manager (
     cinema_id INT(6),
     manager_id INT(6),
-    username VARCHAR(256) UNIQUE, 
+    email VARCHAR(256), 
     password VARCHAR(256),
     PRIMARY KEY (cinema_id),
     FOREIGN KEY (cinema_id) References cinema (cinema_id),
-    FOREIGN KEY (manager_id) References cinema (manager_id)
+    FOREIGN KEY (manager_id) References cinema (manager_id),
+    FOREIGN KEY (email) References employee (email)
 );
 
-INSERT INTO manager VALUES (2000, 100, 'sking', 'admin');
-INSERT INTO manager VALUES (2001, 101, 'nkochhar', 'password1');
-INSERT INTO manager VALUES (2002, 102, 'ldehaan', 'password2');
+INSERT INTO manager VALUES (2000, 100, 'sking@gmail.com', 'admin');
+INSERT INTO manager VALUES (2001, 101, 'nkochhar@gmail.com', 'password1');
+INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', 'password2');
 
 
 -- Are these even necessary???
