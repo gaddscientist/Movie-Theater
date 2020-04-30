@@ -8,6 +8,8 @@
             $this->db = new Database;
         }
 
+        //===================SQL QUERIES=============================================================
+
         // Register new Manager 
         public function register($data) {
             // SQL Query using named parameters
@@ -49,8 +51,6 @@
             }
         }
 
-        
-        //===================SQL QUERIES=============================================================
 
         // Find manager by email
         public function findManagerByEmail($email) {
