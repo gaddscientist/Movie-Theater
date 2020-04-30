@@ -1,7 +1,13 @@
 <!-- Navbar HTML -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
   <div class="container">
-    <a class="navbar-brand" href="<?php echo URLROOT; ?>"><?php echo SITENAME; ?></a>
+    <?php if(isset($_SESSION['manager_id']) && $_SESSION['manager_id'] == 100) : ?>
+      <a class="navbar-brand" href="<?php echo URLROOT; ?>/admins/index"><?php echo SITENAME; ?></a>
+    <?php elseif(isset($_SESSION['manager_id'])) : ?>
+      <a class="navbar-brand" href="<?php echo URLROOT; ?>/pages/index"><?php echo SITENAME; ?></a>
+    <?php else : ?>
+      <a class="navbar-brand" href="<?php echo URLROOT; ?>/managers/login"><?php echo SITENAME; ?></a>
+    <?php endif; ?>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

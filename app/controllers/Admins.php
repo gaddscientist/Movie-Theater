@@ -20,7 +20,7 @@
             // Get Cinema addresses
             $cinema_addresses = $this->adminModel->getCinemaAddresses();
 
-            // Addes addresses to $data to be passed to view
+            // Adds addresses to $data to be passed to view
             $data = [
                 'cinema_addresses' => $cinema_addresses
             ];

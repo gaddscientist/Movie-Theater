@@ -1,0 +1,7 @@
+Change this line in config/config.php:
+  define('URLROOT', 'http://localhost/Movie-Theater'); --> define('URLROOT', 'http://3.234.246.29/~project_19/Movie
+
+
+Change this line in public/.htaccess:
+  RewriteBase /Movie-Theater/public --> RewriteBase /~project_19/Movie-Theater/public
+
