@@ -9,7 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
+        <?php if(isset($_SESSION['manager_id']) && $_SESSION['manager_id'] == 100) : ?>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/index">Home</a>
+        <?php elseif(isset($_SESSION['manager_id'])) : ?>
           <a class="nav-link" href="<?php echo URLROOT; ?>">Home</a>
+        <?php else : ?>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/managers/login">Home</a>
+        <?php endif; ?>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/pages/about">About</a>

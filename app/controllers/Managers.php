@@ -202,7 +202,12 @@
         public function createManagerSession($manager) {
             $_SESSION['manager_id'] = $manager->manager_id;
             $_SESSION['manager_email'] = $manager->email;
-            redirect('pages/index');
+            if($_SESSION['manager_id'] == 100) {
+                redirect('admins/index');
+            } 
+            else {
+                redirect('pages/index');
+            }
         }
 
         // Unsets session variables upon logout
