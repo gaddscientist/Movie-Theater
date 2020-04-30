@@ -1,8 +1,11 @@
 <?php
+    // Included in Bootstrap.php
+    // Helper functions for interacting with sessions
+
     // Allows you to use sessions
     session_start();
 
-    // Flash messagehelper
+    // Flash Message Helper
     // Ex. flash('register_failure', 'You are not registered', 'alert alert-danger');
     // DISPLAY IN VIEW - <?php echo flash('register_failure'); ? >
     function flash($name = '', $message = '', $class = 'alert alert-success') {
@@ -26,5 +29,15 @@
                 echo  '<div class="' . $class . '" id="msg-flash">' . $_SESSION[$name] . '</div>'; 
                 unset($_SESSION[$name]);
                 unset($_SESSION[$name . '_class']); }
+        }
+    }
+
+    // Returns true if a manager is logged in
+    function isLoggedIn() {
+        if(isset($_SESSION['manager_id'])) {
+            return true;
+        }
+        else {
+            return false;
         }
     }

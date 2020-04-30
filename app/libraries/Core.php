@@ -9,6 +9,7 @@
     */
 
     class Core {
+        // Default controller and page function
         protected $currentController = 'Pages';
         protected $currentMethod = 'index';
         protected $params = [];
@@ -19,7 +20,7 @@
             // Gets cleaned array of url values
             $url = $this->getUrl();
 
-            // Look in controllers for first value
+            // Look in controllers folder for requested controller
             if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
                 // If it exists, set it as controller
                 $this->currentController = ucwords($url[0]);
@@ -36,7 +37,7 @@
 
             // Check for second part of url
             if (isset($url[1])) {
-                // Check to see if method exists in controller
+                // Check to see if method exists in specified controller's class
                 if (method_exists($this->currentController, $url[1])) {
                     $this->currentMethod = $url[1];
                     // Unset value at 1 Index

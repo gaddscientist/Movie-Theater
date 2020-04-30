@@ -1,3 +1,4 @@
+<!-- Header HTML for all pages -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

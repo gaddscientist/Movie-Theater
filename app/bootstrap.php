@@ -1,4 +1,5 @@
-<!-- Going to require all the necessary files that we need.  Libraries, config files, helpers, etc -->
+<!-- Requires all the necessary files that we need.  Libraries, config files, helpers, etc -->
+<!-- Note, this is the first page called from the public index.php -->
 <?php
     // Load Config
     require_once 'config/config.php';

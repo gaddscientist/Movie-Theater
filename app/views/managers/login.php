@@ -1,9 +1,9 @@
-
+<!-- View for Login page -->
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body bg-light mt-5">
-                <?php flash('register_success') ?>
+                <?php echo flash('register_success'); ?> <!-- Flashes green success when called -->
                 <h2>Login</h2> 
                 <p>Please fill in  your credentials to login</p>
                 <form action="<?php echo URLROOT; ?>/managers/login" method="post">

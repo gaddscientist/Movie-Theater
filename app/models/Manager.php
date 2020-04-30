@@ -1,4 +1,5 @@
 <?php
+    // Class to interact with database for 'login' and 'register' pages
     class Manager {
         private $db;
 
@@ -7,7 +8,7 @@
             $this->db = new Database;
         }
 
-        // Register Manager 
+        // Register new Manager 
         public function register($data) {
             // SQL Query using named parameters
             $this->db->query('INSERT INTO manager VALUES (:cinema_id, :manager_id, :email, :password)');
@@ -27,15 +28,20 @@
         }
 
 
-        // Login User
+        // Login User, validates login information
         public function login($email, $password) {
+            // Query to get the manager with the specified email
             $this->db->query('SELECT * FROM manager WHERE email = :email');
+            // Binds the given argument to the named parameter
             $this->db->bind(':email', $email);
-
+            // Fetches the next row into $row
             $row = $this->db->single();
 
+            // Pulls hashed password from returned manager 
             $hashed_password = $row->password;
+            // Checks the hash agains a hashed version of the given password
             if(password_verify($password, $hashed_password)) {
+                // Returns the manager if password is valid
                 return $row;
             }
             else {
@@ -44,6 +50,8 @@
         }
 
         
+        //===================SQL QUERIES=============================================================
+
         // Find manager by email
         public function findManagerByEmail($email) {
             // Calls query function from Database class in 'libraries' folder
@@ -86,4 +94,6 @@
                 return false;
             }
         }
+        //===================END SQL QUERIES=============================================================
+
     }
