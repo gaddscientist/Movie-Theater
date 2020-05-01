@@ -104,6 +104,7 @@
 
                         // Register the Cinema
                         if($this->adminModel->registerCinema($data)) {
+                            flash('cinema_message', 'Cinema Successfully Added');
                             redirect('admins/index');
                         }
                         else {

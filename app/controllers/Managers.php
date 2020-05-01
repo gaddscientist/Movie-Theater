@@ -99,7 +99,7 @@
             else {
                 // Initial data if GET request
                 $data = [
-                    'email' => '',
+                    'email' => 'paulGuller@gmail.com',
                     'password' => '',
                     'confirm_password' => '',
                     'cinema_id' => '',

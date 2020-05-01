@@ -8,7 +8,7 @@
 
         public function getCinemaAddresses() {
             $this->db->query('
-                            SELECT street_address, city, state, zip
+                            SELECT cinema_id, street_address, city, state, zip
                             FROM cinema
                             JOIN address
                             USING (address_id)

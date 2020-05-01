@@ -200,12 +200,12 @@ Create Table manager (
     FOREIGN KEY (email) References employee (email)
 );
 
-INSERT INTO manager VALUES (2000, 100, 'sking@gmail.com', 'admin');
-INSERT INTO manager VALUES (2001, 101, 'nkochhar@gmail.com', 'password1');
-INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', 'password2');
+INSERT INTO manager VALUES (2000, 100, 'sking@gmail.com', '$2y$10$Oy5pCdJirvyFTgx.mU8npeLB/ew2L42wn895FY9mdNYIYxATu2Y1K');
+INSERT INTO manager VALUES (2001, 101, 'nkochhar@gmail.com', '$2y$10$LE9c5Lxv798xqXqqXGFo1uX56LxcGsqZRIbgh4GWUWeTDoHuyqFw6');
+INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', '$2y$10$.G1n5xlzRDupl9oWoUoMj.6WeUO.IXlNK0GlAMwlP/L84eeoOQgNC');
 
 
--- Are these even necessary???
+-- Removed because they're useless
 CREATE TABLE supervisor (
     supervisor_id INT(10),
     Worker (int(10)),
