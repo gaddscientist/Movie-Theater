@@ -1,16 +1,5 @@
 <!-- Filler for cinema page -->
-<!-- 
-    //$connection = mysql_pconnect("mysqlserver","mysqluser","mysqlpassword");
-   // $db = mysql_select_db("DATABASE");
-    //$query = mysql_query("select * from SALES");
-   // echo '<table>';
-   // echo '<tr><td>Month</td> <td>Sales</td></tr>';
-   // while ($record = mysql_fetch_array($query)) {
-   // 	echo '<tr> <td>' . $record['month'] . '</td> <td>' . $record['sale'] . '</td> </tr>';
-  //  }
-  //  echo '</table>';
-   ?>
-   -->
+
 
 
 <?php require APPROOT . '/views/inc/header.php'; ?>
@@ -53,7 +42,6 @@
                     <?php endforeach; ?>
 
                     
-                    
 
 
 
@@ -62,7 +50,7 @@
             </div>
             <div class="mx-2">
                 <div class="card-footer border-dark">
-                    <a href="<?php echo URLROOT; ?>/cinemas/modify_employee" class="btn btn-success w-100">Add New Employee</a>
+                    <a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id'] ?>" class="btn btn-success w-100">Add New Employee </a>
                 </div>
             </div>
         </div>

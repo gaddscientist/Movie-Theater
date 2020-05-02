@@ -32,4 +32,16 @@
             $this->view('cinemas/index', $data);
         }
         
+        public function modify($id) {
+            $employees = $this->cinemaModel->getEmployees($id);
+
+            $data = [
+                'cinema_id' => $id,
+                'employees'=>$employees
+            ];
+
+            // Calls view() method from parent class
+            $this->view('cinemas/modify', $data);
+        }
+        
     }
