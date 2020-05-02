@@ -28,7 +28,7 @@ class Database {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true, // Persistent connection
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Errors throw exceptions
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Errors throw exceptions
         );
 
         // Create PDO instance
