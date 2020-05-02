@@ -20,8 +20,12 @@
 
         // Default method if no other is specified
         public function index($id) {
+
+            $employees = $this->cinemaModel->getEmployees($id);
+
             $data = [
-                'cinema_id' => $id
+                'cinema_id' => $id,
+                'employees'=>$employees
             ];
 
             // Calls view() method from parent class
