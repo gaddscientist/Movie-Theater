@@ -19,6 +19,7 @@
 
             return $results;
         }
+      
 
         public function registerAddress($data, $returnType = 'bool') {
             $temp_id;
@@ -96,4 +97,11 @@
                 return false;
             }
         }
-    }
+    
+
+
+
+    
+    
+}   
+    ?>

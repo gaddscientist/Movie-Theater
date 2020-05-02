@@ -1,4 +1,18 @@
 <!-- Filler for cinema page -->
+<!-- 
+    //$connection = mysql_pconnect("mysqlserver","mysqluser","mysqlpassword");
+   // $db = mysql_select_db("DATABASE");
+    //$query = mysql_query("select * from SALES");
+   // echo '<table>';
+   // echo '<tr><td>Month</td> <td>Sales</td></tr>';
+   // while ($record = mysql_fetch_array($query)) {
+   // 	echo '<tr> <td>' . $record['month'] . '</td> <td>' . $record['sale'] . '</td> </tr>';
+  //  }
+  //  echo '</table>';
+   ?>
+   -->
+
+
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <h1 class="text-center">Dashboard</h1>
     <h6 class="text-center">VideoPlex - Store ID: <?php echo $data['cinema_id']; ?></h6>
@@ -29,98 +43,13 @@
                             <th scope="col">Edit</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">100</th>
-                            <td>Steven</td>
-                            <td>King</td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
-                        </tr>
-                    </tbody>
+                    <?php
+
+                    ?>
+
+
+
+
                 </table>
             </div>
             <div class="mx-2">

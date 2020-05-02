@@ -13,8 +13,9 @@
                 redirect('cinemas/index/' . $_SESSION['cinema_id']);
             }
 
-            // $this->cinemaModel = $this->model('Cinema');
+            $this->cinemaModel = $this->model('Cinema');
         }
+
 
 
         // Default method if no other is specified
