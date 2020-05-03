@@ -5,7 +5,7 @@
 
     <div class="card card-body bg-light mt-5">
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <h2>Employee</h2> 
+            <h2>Adding Employee to Store: <?php echo $data['cinema_id']; ?></h2> 
             <p>Please enter the Information for the New Employee</p>
         </div>
         <form action="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>" method="post">
@@ -70,14 +70,14 @@
                     value="<?php echo $data['ssn']; ?>">
                 <span class="invalid-feedback"><?php echo $data['ssn_err']; ?></span>
             </div> 
-
+<!-- BROKEN keeps giving invalid int error
             <div class="form-group">
                 <label for="store_number">Store Number<sup>*</sup></label> 
                 <input type="store_number" name="store_number" 
                     class="form-control form-control-lg <?php echo (!empty($data['store_number_err'])) ? 'is-invalid' : '';?>" 
-                    value="<?php echo $data['cinema_id']; ?>">
+                    value="<?php echo $data ['store_number']; ?>">
                 <span class="invalid-feedback"><?php echo $data['store_number_err']; ?></span>
-            </div>  
+            </div>  -->
             <div class="form-group">
                 <label for="manager_id">Manager Id</label> 
                 <input type="manager_id" name="manager_id" 

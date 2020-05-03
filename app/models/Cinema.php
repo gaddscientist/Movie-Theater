@@ -40,8 +40,8 @@
         public function addEmployees($data){
             //query
             $this->db->query( 'INSERT INTO `employee` 
-            (`employee_id`, `first_name`, `last_name`,`email`, `phone`, `birthdate`, `salary`, `hire_date`, `ssn`,  `store_number`, `manager_id`) 
-                 VALUES(NULL,:first_name,:last_name,:email, :phone, :birthdate, :salary, :hire_date, :ssn,  :store_number, :manager_id )');
+            (`employee_id`, `first_name`, `last_name`,`email`, `phone`, `birthdate`, `salary`, `hire_date`, `ssn`, `store_number`, `manager_id`) 
+                 VALUES(NULL,:first_name,:last_name,:email, :phone, :birthdate, :salary, :hire_date, :ssn, :store_number, :manager_id )');
             //bind the values
             $this->db->bind(':first_name', $data['first_name']);
             $this->db->bind(':last_name', $data['last_name']);

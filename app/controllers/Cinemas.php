@@ -49,10 +49,11 @@
                     'last_name' => trim($_POST['last_name']),
                     'email' => trim($_POST['email']),
                     'phone' => trim($_POST['phone']),
-                    
+                    'store_number'=>$id,
                     'birthdate' => trim($_POST['birthdate']),
                     'salary' =>  trim($_POST['salary']),
                     'hire_date' => trim($_POST['hire_date']),
+                    'ssn' => trim($_POST['ssn']),
                     'manager_id' =>trim($_POST['manager_id']),
                     //err meesages 
                     'first_name_err' => '',
@@ -73,7 +74,7 @@
             /*
                   // Validate first_name 
                   if(empty($data['first_name'])) {
-                    $data['first_name_err'] = 'Please enter the street address';
+                    $data['first_name_err'] = 'Please enter the First Name';
                 }
                 // Validate last_name
                 if(empty($data['last_name'])) {
@@ -83,11 +84,14 @@
                     $data['last_name_err'] = 'Please enter letters only';
                 }
          */
-             
+             if(!is_int($data['store_number'])){
+                 $data['store_number_err']='not integer';
+             }
                 //add the employee
                 $this->cinemaModel->addEmployees($data);
                 flash('emp_message', 'Employee Successfully Added');
-                redirect('admins/index');
+                
+                redirect('cinemas/index/'.$id);
             }
             else {
                  // Initial data if GET request
@@ -101,7 +105,7 @@
                         'salary' =>  '',
                         'hire_date' => '',
                         'ssn' => '',
-                        'store_number' =>'',
+                        'store_number' =>$id,
                         'manager_id' =>'',
                         //inital stuff so as not to break the page
                         'cinema_id' => $id,
