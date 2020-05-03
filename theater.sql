@@ -171,22 +171,33 @@ INSERT INTO ticket VALUES ( 7004, 6004, '17:20', 10.00, 'REG', 20);
 
 CREATE TABLE transaction (
     transaction_id INT(6) AUTO_INCREMENT,
-    ticket_id INT(6),
+    num_tickets INT(6),
+    total_cost DECIMAL(6, 2),
     cinema_id INT(6),
     customer_id INT(6),
     payment_form Char(10),
     transaction_date DATE,
     PRIMARY KEY (transaction_id),
-    FOREIGN KEY (ticket_id) References ticket (ticket_id),
     FOREIGN KEY (cinema_id) References cinema (cinema_id),
     FOREIGN KEY (customer_id) References customer (customer_id)
 );
 
-INSERT INTO transaction VALUES ( 8000, 7000, 2000, 500, 'CREDIT', STR_TO_DATE('12-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8001, 7002, 2003, 501, 'CASH', STR_TO_DATE('12-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8002, 7003, 2002, 502, 'GIFT', STR_TO_DATE('03-04-2020', '%d-%m-%Y')); 
-INSERT INTO transaction VALUES ( 8003, 7004, 2002, 504, 'CREDIT', STR_TO_DATE('08-05-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8004, 7001, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8000, 3, 46.80, 2000, 500, 'CREDIT', STR_TO_DATE('12-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8001, 2, 22.37, 2003, 501, 'CASH', STR_TO_DATE('12-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8002, 8, 102.98, 2002, 502, 'GIFT', STR_TO_DATE('03-04-2020', '%d-%m-%Y')); 
+INSERT INTO transaction VALUES ( 8003, 1, 15.23, 2002, 504, 'CREDIT', STR_TO_DATE('08-05-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8004, 5, 80.27, 2001, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8006, 1, 10.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8007, 2, 20.27, 2000, 503, 'GIFT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8008, 3, 40.27, 2000, 503, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8009, 2, 27.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8010, 3, 37.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8011, 5, 88.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8012, 6, 94.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8013, 5, 83.27, 2000, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8014, 6, 93.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8015, 4, 70.27, 2000, 504, 'GIFT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8016, 5, 80.27, 2000, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
 
 
 Create Table manager (
@@ -203,6 +214,101 @@ Create Table manager (
 INSERT INTO manager VALUES (2000, 100, 'sking@gmail.com', '$2y$10$Oy5pCdJirvyFTgx.mU8npeLB/ew2L42wn895FY9mdNYIYxATu2Y1K');
 INSERT INTO manager VALUES (2001, 101, 'nkochhar@gmail.com', '$2y$10$LE9c5Lxv798xqXqqXGFo1uX56LxcGsqZRIbgh4GWUWeTDoHuyqFw6');
 INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', '$2y$10$.G1n5xlzRDupl9oWoUoMj.6WeUO.IXlNK0GlAMwlP/L84eeoOQgNC');
+
+---------------------------------------------------------------------
+-- Functions & Procedures
+---------------------------------------------------------------------
+-- Daily Functions
+DROP FUNCTION IF EXISTS dailyTickets;
+DELIMITER //
+CREATE FUNCTION dailyTickets(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_sum INT(6);
+    SELECT SUM(num_tickets) INTO v_sum FROM transaction WHERE cinema_id = p_cinema_id AND transaction_date = p_date; 
+    RETURN v_sum;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS dailyGrossSales;
+DELIMITER //
+CREATE FUNCTION dailyGrossSales(p_cinema_id INT, p_date DATE) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_gross_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_gross_sales FROM transaction WHERE cinema_id = p_cinema_id AND transaction_date = p_date; 
+    RETURN v_gross_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS dailySalesByType;
+DELIMITER //
+CREATE FUNCTION dailySalesByType(p_cinema_id INT, p_date DATE, p_type VARCHAR(255)) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_type_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_type_sales FROM transaction WHERE cinema_id = p_cinema_id AND transaction_date = p_date AND payment_form LIKE p_type; 
+    RETURN v_type_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS dailyTransactions;
+DELIMITER //
+CREATE FUNCTION dailyTransactions(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_num_transactions INT;
+    SELECT COUNT(*) INTO v_num_transactions FROM transaction WHERE cinema_id = p_cinema_id AND transaction_date = p_date; 
+    RETURN v_num_transactions;
+END//
+DELIMITER ;
+
+
+-- Monthly Functions
+DROP FUNCTION IF EXISTS monthlyTickets;
+DELIMITER //
+CREATE FUNCTION monthlyTickets(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_sum INT(6);
+    SELECT SUM(num_tickets) INTO v_sum FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_sum;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlyGrossSales;
+DELIMITER //
+CREATE FUNCTION monthlyGrossSales(p_cinema_id INT, p_date DATE) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_gross_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_gross_sales FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_gross_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlySalesByType;
+DELIMITER //
+CREATE FUNCTION monthlySalesByType(p_cinema_id INT, p_date DATE, p_type VARCHAR(255)) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_type_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_type_sales FROM transaction WHERE cinema_id = p_cinema_id AND payment_form LIKE p_type AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_type_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlyTransactions;
+DELIMITER //
+CREATE FUNCTION monthlyTransactions(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_num_transactions INT;
+    SELECT COUNT(*) INTO v_num_transactions FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_num_transactions;
+END//
+DELIMITER ;
+
+
+
+
+
+
+
+
+
 
 
 -- Removed because they're useless
