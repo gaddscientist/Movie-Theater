@@ -8,13 +8,14 @@
             <h2>Employee</h2> 
             <p>Please enter the Information for the New Employee</p>
         </div>
-        <form action="<?php echo URLROOT; ?>/admins/add_cinema" method="post">
+        <form action="<?php echo URLROOT; ?>/cinemas/modify" method="post">
             <div class="form-group">
-                <label for="street_address">First Name <sup>*</sup></label> 
-                <input type="text" name="street_address" 
-                    class="form-control form-control-lg <?php echo (!empty($data['street_address_err'])) ? 'is-invalid' : '';?>" 
-                    value="<?php echo $data['street_address']; ?>">
-                <span class="invalid-feedback"><?php echo $data['street_address_err']; ?></span>
+                <label for="first_name">First Name <sup>*</sup></label> 
+                <input type="text" name="first_name" 
+                     class="form-control form-control-lg <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : '';?>" 
+                    
+                    value="<?php echo $data['first_name']; ?>">
+                <span class="invalid-feedback"><?php echo $data['first_name_err']; ?></span>
             </div> 
             <div class="form-group">
                 <label for="city">Last Name <sup>*</sup></label> 
