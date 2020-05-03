@@ -218,6 +218,7 @@ INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', '$2y$10$.G1n5xlzRD
 ---------------------------------------------------------------------
 -- Functions & Procedures
 ---------------------------------------------------------------------
+-- Daily Functions
 DROP FUNCTION IF EXISTS dailyTickets;
 DELIMITER //
 CREATE FUNCTION dailyTickets(p_cinema_id INT, p_date DATE) RETURNS INT
@@ -259,6 +260,46 @@ END//
 DELIMITER ;
 
 
+-- Monthly Functions
+DROP FUNCTION IF EXISTS monthlyTickets;
+DELIMITER //
+CREATE FUNCTION monthlyTickets(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_sum INT(6);
+    SELECT SUM(num_tickets) INTO v_sum FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_sum;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlyGrossSales;
+DELIMITER //
+CREATE FUNCTION monthlyGrossSales(p_cinema_id INT, p_date DATE) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_gross_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_gross_sales FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_gross_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlySalesByType;
+DELIMITER //
+CREATE FUNCTION monthlySalesByType(p_cinema_id INT, p_date DATE, p_type VARCHAR(255)) RETURNS DECIMAL(8, 2)
+BEGIN
+    DECLARE v_type_sales DECIMAL(8, 2);
+    SELECT SUM(total_cost) INTO v_type_sales FROM transaction WHERE cinema_id = p_cinema_id AND payment_form LIKE p_type AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_type_sales;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS monthlyTransactions;
+DELIMITER //
+CREATE FUNCTION monthlyTransactions(p_cinema_id INT, p_date DATE) RETURNS INT
+BEGIN
+    DECLARE v_num_transactions INT;
+    SELECT COUNT(*) INTO v_num_transactions FROM transaction WHERE cinema_id = p_cinema_id AND MONTH(transaction_date) = MONTH(p_date) AND YEAR(transaction_date) = YEAR(p_date); 
+    RETURN v_num_transactions;
+END//
+DELIMITER ;
 
 
 

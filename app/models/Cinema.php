@@ -26,6 +26,8 @@
             }
         }
 
+
+        // Daily Queries
         public function getTotalDailyTickets($cinema_id, $date) {
             $this->db->query('SELECT dailyTickets(:cinema_id, :date) as total_tickets FROM dual');
             $this->db->bind(':cinema_id', $cinema_id);
@@ -53,6 +55,40 @@
 
         public function getDailyTransactions($cinema_id, $date) {
             $this->db->query('SELECT dailyTransactions(:cinema_id, :date) as num_transactions FROM dual');
+            $this->db->bind(':cinema_id', $cinema_id);
+            $this->db->bind(':date', $date);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['num_transactions'];
+        }
+
+        // Monthly Queries
+        public function getTotalMonthlyTickets($cinema_id, $date) {
+            $this->db->query('SELECT monthlyTickets(:cinema_id, :date) as total_tickets FROM dual');
+            $this->db->bind(':cinema_id', $cinema_id);
+            $this->db->bind(':date', $date);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['total_tickets'];
+        }
+
+        public function getMonthlyGrossSales($cinema_id, $date) {
+            $this->db->query('SELECT monthlyGrossSales(:cinema_id, :date) as gross_sales FROM dual');
+            $this->db->bind(':cinema_id', $cinema_id);
+            $this->db->bind(':date', $date);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['gross_sales'];
+        }
+
+        public function getMonthlySalesByType($cinema_id, $date, $type) {
+            $this->db->query('SELECT monthlySalesByType(:cinema_id, :date, :type) as type_sales FROM dual');
+            $this->db->bind(':cinema_id', $cinema_id);
+            $this->db->bind(':date', $date);
+            $this->db->bind(':type', $type);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['type_sales'];
+        }
+
+        public function getMonthlyTransactions($cinema_id, $date) {
+            $this->db->query('SELECT monthlyTransactions(:cinema_id, :date) as num_transactions FROM dual');
             $this->db->bind(':cinema_id', $cinema_id);
             $this->db->bind(':date', $date);
             $result = json_decode(json_encode($this->db->single()), true);

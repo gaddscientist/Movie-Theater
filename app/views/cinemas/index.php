@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="col card mx-2 border-dark">
-            <p class="card-header text-center border-dark"><strong>Finances</strong></p>
+            <p class="card-header text-center border-dark"><strong>Finances - <span id="day2">Daily</span><span id="month2" style="display: none;">Monthly</span></strong></p>
             <form class="text-center card-header mt-1 mb-4 py-1 border-dark" action="<?php echo URLROOT; ?>/cinemas/<?php echo $data['cinema_id'] ?>" method="post">
                 <label for="datepicker">Select a date:</label>
                 <input type="date" value="<?php echo $data['finances']['date_chosen']; ?>" name="date_chosen" id="datepicker">
@@ -180,39 +180,39 @@
 
                 <div id="month" style="display: none;">
                     <div class="d-flex justify-content-between">
-                        <span class="text-left font-weight-bold">TEST Tickets Sold:</span>
-                        <span class="text-right"><?php echo $data['finances']['total_tickets']; ?></span>
+                        <span class="text-left font-weight-bold">Tickets Sold:</span>
+                        <span class="text-right"><?php echo $data['monthly_finances']['total_tickets']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
 
                     <div class="d-flex justify-content-between">
                         <span class="text-left font-weight-bold">Gross Sales:</span>
-                        <span class="text-right">$<?php echo $data['finances']['gross_sales']; ?></span>
+                        <span class="text-right">$<?php echo $data['monthly_finances']['gross_sales']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
 
                     <div class="d-flex justify-content-between">
                         <span class="text-left font-weight-bold">Credit Card Sales:</span>
-                        <span class="text-right">$<?php echo $data['finances']['CREDIT']; ?></span>
+                        <span class="text-right">$<?php echo $data['monthly_finances']['CREDIT']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
 
                     <div class="d-flex justify-content-between">
                         <span class="text-left font-weight-bold">Cash Sales:</span>
-                        <span class="text-right">$<?php echo $data['finances']['CASH']; ?></span>
+                        <span class="text-right">$<?php echo $data['monthly_finances']['CASH']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
 
                     <div class="d-flex justify-content-between">
                         <span class="text-left font-weight-bold">Gift Card Sales:</span>
-                        <span class="text-right">$<?php echo $data['finances']['GIFT']; ?></span>
+                        <span class="text-right">$<?php echo $data['monthly_finances']['GIFT']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
 
 
                     <div class="d-flex justify-content-between">
                         <span class="text-left font-weight-bold">Number of Transactions: </span>
-                        <span class="text-right"><?php echo $data['finances']['transactions']; ?></span>
+                        <span class="text-right"><?php echo $data['monthly_finances']['transactions']; ?></span>
                     </div>
                     <div class="border-bottom w-100 mb-3"></div>
                 </div>
@@ -223,7 +223,7 @@
                 <div class="card-footer border-dark">
                     <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input type="radio" onchange="hideMonthly(this)" name="option1" id="daily" autocomplete="off" checked> Daily
+                            <input type="radio" style="box-shadow: none;" onchange="hideMonthly(this)" name="option1" id="daily" autocomplete="off" checked> Daily
                         </label>
                         <label class="btn btn-primary">
                             <input type="radio" onchange="hideDaily(this)" name="option2" id="monthly" autocomplete="off"> Monthly
