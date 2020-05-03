@@ -8,7 +8,7 @@
             <h2>Employee</h2> 
             <p>Please enter the Information for the New Employee</p>
         </div>
-        <form action="<?php echo URLROOT; ?>/cinemas/modify" method="post">
+        <form action="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>" method="post">
             <div class="form-group">
                 <label for="first_name">First Name <sup>*</sup></label> 
                 <input type="text" name="first_name" 
@@ -75,7 +75,7 @@
                 <label for="store_number">Store Number<sup>*</sup></label> 
                 <input type="store_number" name="store_number" 
                     class="form-control form-control-lg <?php echo (!empty($data['store_number_err'])) ? 'is-invalid' : '';?>" 
-                    value="<?php echo $data['store_number']; ?>">
+                    value="<?php echo $data['cinema_id']; ?>">
                 <span class="invalid-feedback"><?php echo $data['store_number_err']; ?></span>
             </div>  
             <div class="form-group">
@@ -90,7 +90,7 @@
 
             <div class="row d-flex justify-content-center">
                 <div>
-                    <input type="submit" value="Add Cinema" class="btn btn-success btn-block"> 
+                    <input type="submit" value="Add Employee" class="btn btn-success btn-block"> 
                 </div> 
             </div>
         </form>

@@ -70,6 +70,7 @@
                 ];
                 
             //basic validation
+            /*
                   // Validate first_name 
                   if(empty($data['first_name'])) {
                     $data['first_name_err'] = 'Please enter the street address';
@@ -81,12 +82,12 @@
                 elseif(!ctype_alpha($data['last_name'])) {
                     $data['last_name_err'] = 'Please enter letters only';
                 }
-         
+         */
              
                 //add the employee
                 $this->cinemaModel->addEmployees($data);
                 flash('emp_message', 'Employee Successfully Added');
-                            redirect('admins/index');
+                redirect('admins/index');
             }
             else {
                  // Initial data if GET request
