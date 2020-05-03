@@ -25,7 +25,8 @@
 
             $data = [
                 'cinema_id' => $id,
-                'employees' => '',
+                'employees' => array(
+                ),
                 'manager' => array(
                     'id' => '',
                     'name' => '',
@@ -56,10 +57,11 @@
             $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
 
             // Manager
-            $data['manager_id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
+            $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
             $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
             $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
             $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
+            $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
 
             // Daily finances
             $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
@@ -82,7 +84,8 @@
 
             $data = [
                 'cinema_id' => $id,
-                'employees' => '',
+                'employees' => array(
+                ),
                 'manager' => array(
                     'id' => '',
                     'name' => '',
@@ -159,10 +162,8 @@
         }
         
        
-//edit employee
-
         //add employeee
-        public function modify($id) {
+        public function modify($cinema_id, $manager_id) {
             // Checks to see if form is being submitted or loaded initially
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Process form
@@ -172,35 +173,36 @@
             
                  // Initial data if POST request
                  $data = [
-                     //data for insert
+                     // Data for insert
                     'first_name' => trim($_POST['first_name']),
                     'last_name' => trim($_POST['last_name']),
                     'email' => trim($_POST['email']),
                     'phone' => trim($_POST['phone']),
-                    'store_number'=>$id,
+                    'store_number'=> $cinema_id,
                     'birthdate' => trim($_POST['birthdate']),
                     'salary' =>  trim($_POST['salary']),
-                    'hire_date' => trim($_POST['hire_date']),
+                    // 'hire_date' => trim($_POST['hire_date']), CHANGE TO CURDATE() in SQL
                     'ssn' => trim($_POST['ssn']),
-                    'manager_id' =>trim($_POST['manager_id']),
-                    //err meesages 
+                    'manager_id' => $manager_id,
+                    'street_address' => trim($_POST['street_address']),
+                    'city' => trim($_POST['city']),
+                    'state' => trim($_POST['state']),
+                    'zip' => trim($_POST['zip']),
+                    // Err meesages 
                     'first_name_err' => '',
                     'last_name_err' => '',
                     'email_err' => '',
                     'phone_err' => '',
                     'birthdate_err' => '',
-                    'phone_err' => '',
-                    'birthdate_err' => '',
                     'salary_err' => '',
-                    'hire_date_err' => '',
                     'ssn_err'=> '',
-                    'store_number_err'=>'',
-                    'manager_id_err'=>''
+                    'street_address_err' => '',
+                    'city_err' => '',
+                    'state_err' => '',
+                    'zip_err' => ''
                 ];
                 
-            //basic validation
-            
-                  // Validate first_name 
+                // Validate first_name 
                 if(empty($data['first_name'])) {
                    $data['first_name_err'] = 'Please enter the First Name';
                 }
@@ -208,51 +210,51 @@
                 if(empty($data['last_name'])) {
                   $data['last_name_err'] = 'Please enter a last_name';
                 }
-              if(empty($data['ssn'])) {
+                if(empty($data['ssn'])) {
                    $data['ssn_err'] = 'Please enter ssn';
                    $this->view('cinemas/modify'.$id, $data);                
-
-              }
-                
+                }
                
-         //    if(!is_int($data['store_number'])){
-           //      $data['store_number_err']='not integer';
-        
-             //}
-             
                 //add the employee
-                $this->cinemaModel->addEmployees($data);
+                $this->cinemaModel->addEmployee($data);
                 flash('emp_message', 'Employee Successfully Added');
                 
-                redirect('cinemas/index/'.$id);
-            
-            
-            
-             
+                redirect('cinemas/index/' . $cinema_id . '/' . $manager_id);
             }
             else {
-                 // Initial data if GET request
-                 $employees = $this->cinemaModel->getEmployees($id);
-                    $data=[
-                        'first_name' => '',
-                        'last_name' => '',
-                        'email' => '',
-                        'phone' => '',
-                        'birthdate' => '',
-                        'salary' =>  '',
-                        'hire_date' => '',
-                        'ssn' => '',
-                        'store_number' =>$id,
-                        'manager_id' =>'',
-                        //inital stuff so as not to break the page
-                        'cinema_id' => $id,
-                        'employees'=>$employees
-                    ];       
-                    $this->view('cinemas/modify', $data);                }
-            
+                // Initial data if GET request
+                $data=[
+                    'first_name' => '',
+                    'last_name' => '',
+                    'email' => '',
+                    'phone' => '',
+                    'birthdate' => '',
+                    'salary' =>  '',
+                    'hire_date' => '',
+                    'ssn' => '',
+                    'cinema_id' => $cinema_id, 
+                    'manager_id' => $manager_id,
+                    'street_address' => '',
+                    'city' => '',
+                    'state' => '',
+                    'zip' => '',
+                    // Err meesages 
+                    'first_name_err' => '',
+                    'last_name_err' => '',
+                    'email_err' => '',
+                    'phone_err' => '',
+                    'birthdate_err' => '',
+                    'salary_err' => '',
+                    'ssn_err'=> '',
+                    'street_address_err' => '',
+                    'city_err' => '',
+                    'state_err' => '',
+                    'zip_err' => ''
+                ];       
+
+                $this->view('cinemas/modify', $data);
+            }
         }
-        
-        
     }
 
    

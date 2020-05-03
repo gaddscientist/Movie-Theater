@@ -3,7 +3,7 @@
 
     // Simple page redirect
     function redirect($page) {
-        // Redirects page back to register
+        // Redirects to $page
         header('location: ' . URLROOT . '/' . $page);
     }
 

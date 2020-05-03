@@ -44,7 +44,7 @@
             </div>
             <div class="mx-2">
                 <div class="card-footer border-dark">
-                    <a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id'] ?>" class="btn btn-success w-100">Add New Employee </a>
+                    <a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>/<?php echo $data['manager']['id']; ?>" class="btn btn-success w-100">Add New Employee </a>
                 </div>
             </div>
         </div>
