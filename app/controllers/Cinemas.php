@@ -31,7 +31,7 @@
             // Calls view() method from parent class
             $this->view('cinemas/index', $data);
         }
-        
+        /*
         public function modify($id) {
 
             // Checks to see if form is being submitted or loaded initially
@@ -122,5 +122,5 @@
 
             
         }
-        
+        */
     }
