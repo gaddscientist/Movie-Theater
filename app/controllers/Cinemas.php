@@ -1,3 +1,4 @@
+
 <?php
     // Cinema controller
     // Controls pages related to one cinema
@@ -9,7 +10,7 @@
                 redirect('managers/login');
             }
             // If logged in user is not the manager
-            elseif($_SESSION['birthdate'] != 100) {
+            elseif($_SESSION['manager_id'] != 100) {
                 redirect('cinemas/index/' . $_SESSION['cinema_id']);
             }
 
@@ -31,13 +32,12 @@
             // Calls view() method from parent class
             $this->view('cinemas/index', $data);
         }
-        /*
+        
+       
         public function modify($id) {
-
             // Checks to see if form is being submitted or loaded initially
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Process form
-
                 // Sanitize POST data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 
@@ -54,7 +54,6 @@
                     'salary' =>  trim($_POST['salary']),
                     'hire_date' => trim($_POST['hire_date']),
                     'manager_id' =>trim($_POST['manager_id']),
-
                     //err meesages 
                     'first_name_err' => '',
                     'last_name_err' => '',
@@ -75,7 +74,6 @@
                   if(empty($data['first_name'])) {
                     $data['first_name_err'] = 'Please enter the street address';
                 }
-
                 // Validate last_name
                 if(empty($data['last_name'])) {
                     $data['last_name_err'] = 'Please enter a last_name';
@@ -83,23 +81,16 @@
                 elseif(!ctype_alpha($data['last_name'])) {
                     $data['last_name_err'] = 'Please enter letters only';
                 }
-
          
              
-
                 //add the employee
                 $this->cinemaModel->addEmployees($data);
                 flash('emp_message', 'Employee Successfully Added');
                             redirect('admins/index');
-
-
             }
             else {
                  // Initial data if GET request
-
                  $employees = $this->cinemaModel->getEmployees($id);
-
-
                     $data=[
                         'first_name' => '',
                         'last_name' => '',
@@ -111,16 +102,17 @@
                         'ssn' => '',
                         'store_number' =>'',
                         'manager_id' =>'',
-
                         //inital stuff so as not to break the page
                         'cinema_id' => $id,
                         'employees'=>$employees
                     ];       
                     $this->view('cinema/modify', $data);
-
                 }
-
             
         }
-        */
+        
+        
     }
+
+   
+
