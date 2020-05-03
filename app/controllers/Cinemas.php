@@ -63,7 +63,7 @@
                     'phone_err' => '',
                     'birthdate_err' => '',
                     'salary_err' => '',
-                    'hire_date' => '',
+                    'hire_date_err' => '',
                     'ssn_err'=> '',
                     'store_number_err'=>'',
                     'manager_id_err'=>''
