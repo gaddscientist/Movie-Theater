@@ -13,9 +13,9 @@
 
                 <p class="card-header text-center border-dark"><strong>Staff</strong></p>
                 <!-- Search form -->
-                <form class="card-header border-dark" action="post">
+                <form class="card-header border-dark" action="<?php echo URLROOT; ?>/cinemas/<?php echo $data['cinema_id']; ?>" method="post">
                     <div class="input-group mb-0">
-                    <input type="text" class="form-control border-bottom border-top border-dark" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                    <input name="search_name" type="text" class="form-control border-bottom border-top border-dark" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -29,15 +29,15 @@
                             <th scope="col">ID</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Edit</th>
+                            <!-- <th scope="col">Edit</th> -->
                         </tr>
                     </thead>
                     <?php foreach($data['employees'] as $employee) : ?>                     
                         <tr>
                             <th scope="row"><?php echo $employee->employee_id?></th>
-                            <td><?php echo $employee->first_name?></td>
-                            <td><?php echo $employee->last_name?></td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>"><i class="fa fa-edit"></i></a></td>
+                            <td class="text-center"><?php echo $employee->first_name?></td>
+                            <td class="text-center"><?php echo $employee->last_name?></td>
+                            <!-- <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>"><i class="fa fa-edit"></i></a></td> -->
                         </tr>
                     <?php endforeach; ?>
                 </table>

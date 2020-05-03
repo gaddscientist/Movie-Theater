@@ -269,6 +269,7 @@ BEGIN
 END//
 DELIMITER ; 
 
+
 -- Daily Functions
 DROP FUNCTION IF EXISTS dailyTickets;
 DELIMITER //

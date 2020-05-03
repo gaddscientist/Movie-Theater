@@ -23,142 +23,161 @@
         public function index($id) {
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $data = [
-                'cinema_id' => $id,
-                'employees' => array(
-                ),
-                'manager' => array(
-                    'id' => '',
-                    'name' => '',
-                    'email' =>'',
-                    'phone' => '',
-                    'address' => ''
-                ),
-                'finances' => array (
-                    'date_chosen' => trim($_POST['date_chosen']),
-                    'total_tickets' => '',
-                    'gross_sales' => '',
-                    'CREDIT' => '',
-                    'CASH' => '',
-                    'GIFT' => '',
-                    'transactions' => ''
-                ),
-                'monthly_finances' => array (
-                    'total_tickets' => '',
-                    'gross_sales' => '',
-                    'CREDIT' => '',
-                    'CASH' => '',
-                    'GIFT' => '',
-                    'transactions' => ''
-                )
-            ];
+                if(isset($_POST['date_chosen'])) {
+                    $tempDate = trim($_POST['date_chosen']);
+                }
+                else {
+                    $tempDate = date("Y-m-d");
+                }
 
-            // Employees
-            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
+                if(isset($_POST['search_name'])) {
+                    $tempName = trim($_POST['search_name']);
+                }
+                else {
+                    $tempName = '';
+                }
 
-            // Manager
-            $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
-            $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
-            $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
-            $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
-            $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
+                $data = [
+                    'cinema_id' => $id,
+                    'employees' => array(),
+                    'search_name' => $tempName,
+                    'manager' => array(
+                        'id' => '',
+                        'name' => '',
+                        'email' =>'',
+                        'phone' => '',
+                        'address' => ''
+                    ),
+                    'finances' => array (
+                        'date_chosen' => $tempDate,
+                        'total_tickets' => '',
+                        'gross_sales' => '',
+                        'CREDIT' => '',
+                        'CASH' => '',
+                        'GIFT' => '',
+                        'transactions' => ''
+                    ),
+                    'monthly_finances' => array (
+                        'total_tickets' => '',
+                        'gross_sales' => '',
+                        'CREDIT' => '',
+                        'CASH' => '',
+                        'GIFT' => '',
+                        'transactions' => ''
+                    )
+                ];
 
-            // Daily finances
-            $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['finances']['gross_sales'] = $this->cinemaModel->getDailyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['finances']['CREDIT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
-            $data['finances']['CASH'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
-            $data['finances']['GIFT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
-            $data['finances']['transactions'] = $this->cinemaModel->getDailyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+                // Employees
+                if($data['search_name'] !== '') {
+                    $data['employees'] = $this->cinemaModel->getEmployeesBySearch($data['search_name'], $data['cinema_id']);
+                }
+                else {
+                    $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
 
-            // Monthly finances
-            $data['monthly_finances']['total_tickets'] = $this->cinemaModel->getTotalMonthlyTickets($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['monthly_finances']['gross_sales'] = $this->cinemaModel->getMonthlyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['monthly_finances']['CREDIT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
-            $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
-            $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
-            $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+                }
 
-        }
-        else {
+                // Manager
+                $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
+                $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
+                $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
+                $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
+                $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
 
-            $data = [
-                'cinema_id' => $id,
-                'employees' => array(
-                ),
-                'manager' => array(
-                    'id' => '',
-                    'name' => '',
-                    'email' =>'',
-                    'phone' => '',
-                    'address' => ''
-                ),
-                'finances' => array (
-                    'date_chosen' => date("Y-m-d"),
-                    'total_tickets' => '',
-                    'gross_sales' => '',
-                    'CREDIT' => '',
-                    'CASH' => '',
-                    'GIFT' => '',
-                    'transactions' => ''
-                ),
-                'monthly_finances' => array (
-                    'total_tickets' => '',
-                    'gross_sales' => '',
-                    'CREDIT' => '',
-                    'CASH' => '',
-                    'GIFT' => '',
-                    'transactions' => ''
-                )
-            ];
-            
-            // Employees
-            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
-            
-            // Manager
-            $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
-            $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
-            $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
-            $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
-            $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
+                // Daily finances
+                $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['finances']['gross_sales'] = $this->cinemaModel->getDailyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['finances']['CREDIT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
+                $data['finances']['CASH'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
+                $data['finances']['GIFT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
+                $data['finances']['transactions'] = $this->cinemaModel->getDailyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
 
-            // Daily finances
-            $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['finances']['gross_sales'] = $this->cinemaModel->getDailyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['finances']['CREDIT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
-            $data['finances']['CASH'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
-            $data['finances']['GIFT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
-            $data['finances']['transactions'] = $this->cinemaModel->getDailyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+                // Monthly finances
+                $data['monthly_finances']['total_tickets'] = $this->cinemaModel->getTotalMonthlyTickets($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['monthly_finances']['gross_sales'] = $this->cinemaModel->getMonthlyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['monthly_finances']['CREDIT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
+                $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
+                $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
+                $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
 
-            // Monthly finances
-            $data['monthly_finances']['total_tickets'] = $this->cinemaModel->getTotalMonthlyTickets($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['monthly_finances']['gross_sales'] = $this->cinemaModel->getMonthlyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
-            $data['monthly_finances']['CREDIT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
-            $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
-            $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
-            $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
-        }
-
-        if(!isset($data['finances']['total_tickets'])) {
-            $data['finances']['total_tickets'] = 0;
-        }
-        foreach($data['finances'] as $key => $value) {
-            if(!isset($data['finances'][$key])) {
-                $data['finances'][$key] = '0.00';
             }
-        }
+            else {
 
-        if(!isset($data['monthly_finances']['total_tickets'])) {
-            $data['monthly_finances']['total_tickets'] = 0;
-        }
-        foreach($data['monthly_finances'] as $key => $value) {
-            if(!isset($data['monthly_finances'][$key])) {
-                $data['monthly_finances'][$key] = '0.00';
+                $data = [
+                    'cinema_id' => $id,
+                    'employees' => array(),
+                    'manager' => array(
+                        'id' => '',
+                        'name' => '',
+                        'email' =>'',
+                        'phone' => '',
+                        'address' => ''
+                    ),
+                    'finances' => array (
+                        'date_chosen' => date("Y-m-d"),
+                        'total_tickets' => '',
+                        'gross_sales' => '',
+                        'CREDIT' => '',
+                        'CASH' => '',
+                        'GIFT' => '',
+                        'transactions' => ''
+                    ),
+                    'monthly_finances' => array (
+                        'total_tickets' => '',
+                        'gross_sales' => '',
+                        'CREDIT' => '',
+                        'CASH' => '',
+                        'GIFT' => '',
+                        'transactions' => ''
+                    )
+                ];
+                
+                // Employees
+                $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
+                
+                // Manager
+                $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
+                $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
+                $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
+                $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
+                $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
+
+                // Daily finances
+                $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['finances']['gross_sales'] = $this->cinemaModel->getDailyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['finances']['CREDIT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
+                $data['finances']['CASH'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
+                $data['finances']['GIFT'] = $this->cinemaModel->getDailySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
+                $data['finances']['transactions'] = $this->cinemaModel->getDailyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+
+                // Monthly finances
+                $data['monthly_finances']['total_tickets'] = $this->cinemaModel->getTotalMonthlyTickets($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['monthly_finances']['gross_sales'] = $this->cinemaModel->getMonthlyGrossSales($data['cinema_id'], $data['finances']['date_chosen']);
+                $data['monthly_finances']['CREDIT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CREDIT');
+                $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
+                $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
+                $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
             }
-        }
 
-        // Calls view() method from parent class
-        $this->view('cinemas/index', $data);
+            if(!isset($data['finances']['total_tickets'])) {
+                $data['finances']['total_tickets'] = 0;
+            }
+            foreach($data['finances'] as $key => $value) {
+                if(!isset($data['finances'][$key])) {
+                    $data['finances'][$key] = '0.00';
+                }
+            }
+
+            if(!isset($data['monthly_finances']['total_tickets'])) {
+                $data['monthly_finances']['total_tickets'] = 0;
+            }
+            foreach($data['monthly_finances'] as $key => $value) {
+                if(!isset($data['monthly_finances'][$key])) {
+                    $data['monthly_finances'][$key] = '0.00';
+                }
+            }
+
+            // Calls view() method from parent class
+            $this->view('cinemas/index', $data);
         }
         
        

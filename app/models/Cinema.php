@@ -126,17 +126,25 @@
 
 
         // PAULS QUERIES
-        // A function to get the employees from the store id
-        public function getEmployees($store_id){
+        // A function to get the employees from the cinema id
+        public function getEmployees($store){
             //make query
-            $this->db->query( 'SELECT * FROM employee WHERE store_number =:store_id ');
+            $this->db->query( 'SELECT * FROM employee WHERE store_number = :store');
             //bind the values
-            $this->db->bind(':store_id',$store_id);
+            $this->db->bind(':store',$store);
             //execute the query
             $results = $this->db->resultSet();
             //return the result
             return $results;
-    
+        }
+
+        public function getEmployeesBySearch($name, $store) {
+            // $this->db->query("SELECT * FROM employee WHERE store_number = :store AND CONCAT(first_name, ' ', last_name) Like BINARY :name");
+            $this->db->query("SELECT * FROM employee WHERE store_number = :store AND (first_name LIKE BINARY :name OR last_name LIKE BINARY :name OR employee_id LIKE BINARY :name)");
+            $this->db->bind(':name', $name);
+            $this->db->bind(':store', $store);
+            $results = $this->db->resultSet();
+            return $results;
         }
 
         public function registerAddress($data, $returnType = 'bool') {
