@@ -37,7 +37,7 @@
                             <th scope="row"><?php echo $employee->employee_id?></th>
                             <td><?php echo $employee->first_name?></td>
                             <td><?php echo $employee->last_name?></td>
-                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify_employee"><i class="fa fa-edit"></i></a></td>
+                            <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>"><i class="fa fa-edit"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
 

@@ -34,6 +34,13 @@
         }
         
        
+//edit employee
+
+
+
+
+
+        //add employeee
         public function modify($id) {
             // Checks to see if form is being submitted or loaded initially
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -71,27 +78,36 @@
                 ];
                 
             //basic validation
-            /*
+            
                   // Validate first_name 
-                  if(empty($data['first_name'])) {
-                    $data['first_name_err'] = 'Please enter the First Name';
+                if(empty($data['first_name'])) {
+                   $data['first_name_err'] = 'Please enter the First Name';
                 }
                 // Validate last_name
                 if(empty($data['last_name'])) {
-                    $data['last_name_err'] = 'Please enter a last_name';
+                  $data['last_name_err'] = 'Please enter a last_name';
                 }
-                elseif(!ctype_alpha($data['last_name'])) {
-                    $data['last_name_err'] = 'Please enter letters only';
-                }
-         */
-             if(!is_int($data['store_number'])){
-                 $data['store_number_err']='not integer';
-             }
+              if(empty($data['ssn'])) {
+                   $data['ssn_err'] = 'Please enter ssn';
+                   $this->view('cinemas/modify'.$id, $data);                
+
+              }
+                
+               
+         //    if(!is_int($data['store_number'])){
+           //      $data['store_number_err']='not integer';
+        
+             //}
+             
                 //add the employee
                 $this->cinemaModel->addEmployees($data);
                 flash('emp_message', 'Employee Successfully Added');
                 
                 redirect('cinemas/index/'.$id);
+            
+            
+            
+             
             }
             else {
                  // Initial data if GET request

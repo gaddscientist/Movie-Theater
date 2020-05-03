@@ -57,8 +57,27 @@
             //execute
             $this->db->execute();
 
+        }
 
-            
+        public function updateEmployee($data){
+
+            $this->db->query('UPDATE employee SET `first_name` = :first_name, `last_name`=:last_name,`email`=:email, `phone`=:phone, `birthdate`=:birthdate, `salary`=:salary, `hire_date`=:hire_date, `ssn`=:ssn, `store_number`=:store_number, `manager_id`=:manager_id  
+            WHERE `employee_id` =:employee_id');
+             //bind the values
+             $this->db->bind(':first_name', $data['first_name']);
+             $this->db->bind(':last_name', $data['last_name']);
+             $this->db->bind(':email', $data['email']);
+             $this->db->bind(':phone', $data['phone']);
+             $this->db->bind(':birthdate', $data['birthdate']);
+             $this->db->bind(':salary', $data['salary']);
+             $this->db->bind(':hire_date', $data['hire_date']);
+             $this->db->bind(':ssn', $data['ssn']);
+             $this->db->bind(':employee_id', $data['employee_id']);
+             $this->db->bind(':store_number', $data['store_number']);
+             $this->db->bind(':manager_id', $data['manager_id']);
+             //execute
+             $this->db->execute();
+ 
 
 
 
