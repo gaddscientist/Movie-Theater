@@ -10,7 +10,7 @@
             // Calls query function from Database class in 'libraries' folder
             $this->db->query('SELECT cinema_id FROM cinema WHERE employee_id = :id');
             // Calls bind function from Database class in 'libraries' folder
-            $this->db->bind(':id', $id);
+            $this->db->bind(':id', $manager_id);
 
             // Calls single function from Database class in 'libraries' folder
             $row = $this->db->single();
@@ -93,5 +93,60 @@
             $this->db->bind(':date', $date);
             $result = json_decode(json_encode($this->db->single()), true);
             return $result['num_transactions'];
+        }
+
+
+        // PAULS QUERIES
+        // A function to get the employees from the store id
+        public function getEmployees($store_id){
+            //make query
+            $this->db->query( 'SELECT * FROM employee WHERE store_number =:store_id ');
+            //bind the values
+            $this->db->bind(':store_id',$store_id);
+            //execute the query
+            $results = $this->db->resultSet();
+            //return the result
+            return $results;
+    
+        }
+        public function addEmployees($data){
+            //query
+            $this->db->query( 'INSERT INTO `employee` 
+            (`employee_id`, `first_name`, `last_name`,`email`, `phone`, `birthdate`, `salary`, `hire_date`, `ssn`, `store_number`, `manager_id`) 
+                 VALUES(NULL,:first_name,:last_name,:email, :phone, :birthdate, :salary, :hire_date, :ssn, :store_number, :manager_id )');
+            //bind the values
+            $this->db->bind(':first_name', $data['first_name']);
+            $this->db->bind(':last_name', $data['last_name']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':phone', $data['phone']);
+            $this->db->bind(':birthdate', $data['birthdate']);
+            $this->db->bind(':salary', $data['salary']);
+            $this->db->bind(':hire_date', $data['hire_date']);
+            $this->db->bind(':ssn', $data['ssn']);
+            //$this->db->bind(':address_id', $data['adress_id']);
+            $this->db->bind(':store_number', $data['store_number']);
+            $this->db->bind(':manager_id', $data['manager_id']);
+            //execute
+            $this->db->execute();
+        }
+
+        public function updateEmployee($data){
+
+            $this->db->query('UPDATE employee SET `first_name` = :first_name, `last_name`=:last_name,`email`=:email, `phone`=:phone, `birthdate`=:birthdate, `salary`=:salary, `hire_date`=:hire_date, `ssn`=:ssn, `store_number`=:store_number, `manager_id`=:manager_id  
+            WHERE `employee_id` =:employee_id');
+             //bind the values
+             $this->db->bind(':first_name', $data['first_name']);
+             $this->db->bind(':last_name', $data['last_name']);
+             $this->db->bind(':email', $data['email']);
+             $this->db->bind(':phone', $data['phone']);
+             $this->db->bind(':birthdate', $data['birthdate']);
+             $this->db->bind(':salary', $data['salary']);
+             $this->db->bind(':hire_date', $data['hire_date']);
+             $this->db->bind(':ssn', $data['ssn']);
+             $this->db->bind(':employee_id', $data['employee_id']);
+             $this->db->bind(':store_number', $data['store_number']);
+             $this->db->bind(':manager_id', $data['manager_id']);
+             //execute
+             $this->db->execute();
         }
     }

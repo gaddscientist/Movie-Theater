@@ -1,3 +1,4 @@
+
 <?php
     // Cinema controller
     // Controls pages related to one cinema
@@ -15,6 +16,7 @@
 
             $this->cinemaModel = $this->model('Cinema');
         }
+
 
 
         // Default method if no other is specified
@@ -79,7 +81,8 @@
                     'CASH' => '',
                     'GIFT' => '',
                     'transactions' => ''
-                )
+                ),
+                'employees' => ''
             ];
 
             // Daily finances
@@ -97,6 +100,9 @@
             $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
             $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
             $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+            
+            // Employees
+            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
         }
 
         if(!isset($data['finances']['total_tickets'])) {
@@ -121,4 +127,106 @@
         $this->view('cinemas/index', $data);
         }
         
+       
+//edit employee
+
+
+
+
+
+        //add employeee
+        public function modify($id) {
+            // Checks to see if form is being submitted or loaded initially
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+            
+                 // Initial data if POST request
+                 $data = [
+                     //data for insert
+                    'first_name' => trim($_POST['first_name']),
+                    'last_name' => trim($_POST['last_name']),
+                    'email' => trim($_POST['email']),
+                    'phone' => trim($_POST['phone']),
+                    'store_number'=>$id,
+                    'birthdate' => trim($_POST['birthdate']),
+                    'salary' =>  trim($_POST['salary']),
+                    'hire_date' => trim($_POST['hire_date']),
+                    'ssn' => trim($_POST['ssn']),
+                    'manager_id' =>trim($_POST['manager_id']),
+                    //err meesages 
+                    'first_name_err' => '',
+                    'last_name_err' => '',
+                    'email_err' => '',
+                    'phone_err' => '',
+                    'birthdate_err' => '',
+                    'phone_err' => '',
+                    'birthdate_err' => '',
+                    'salary_err' => '',
+                    'hire_date_err' => '',
+                    'ssn_err'=> '',
+                    'store_number_err'=>'',
+                    'manager_id_err'=>''
+                ];
+                
+            //basic validation
+            
+                  // Validate first_name 
+                if(empty($data['first_name'])) {
+                   $data['first_name_err'] = 'Please enter the First Name';
+                }
+                // Validate last_name
+                if(empty($data['last_name'])) {
+                  $data['last_name_err'] = 'Please enter a last_name';
+                }
+              if(empty($data['ssn'])) {
+                   $data['ssn_err'] = 'Please enter ssn';
+                   $this->view('cinemas/modify'.$id, $data);                
+
+              }
+                
+               
+         //    if(!is_int($data['store_number'])){
+           //      $data['store_number_err']='not integer';
+        
+             //}
+             
+                //add the employee
+                $this->cinemaModel->addEmployees($data);
+                flash('emp_message', 'Employee Successfully Added');
+                
+                redirect('cinemas/index/'.$id);
+            
+            
+            
+             
+            }
+            else {
+                 // Initial data if GET request
+                 $employees = $this->cinemaModel->getEmployees($id);
+                    $data=[
+                        'first_name' => '',
+                        'last_name' => '',
+                        'email' => '',
+                        'phone' => '',
+                        'birthdate' => '',
+                        'salary' =>  '',
+                        'hire_date' => '',
+                        'ssn' => '',
+                        'store_number' =>$id,
+                        'manager_id' =>'',
+                        //inital stuff so as not to break the page
+                        'cinema_id' => $id,
+                        'employees'=>$employees
+                    ];       
+                    $this->view('cinemas/modify', $data);                }
+            
+        }
+        
+        
     }
+
+   
+
