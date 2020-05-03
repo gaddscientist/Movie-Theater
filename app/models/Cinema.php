@@ -6,24 +6,53 @@
             $this->db = new Database;
         }
 
-        public function getCinemaIdByManagerId($manager_id) {
+        public function getManagerIdByCinemaId($cinema_id) {
             // Calls query function from Database class in 'libraries' folder
-            $this->db->query('SELECT cinema_id FROM cinema WHERE employee_id = :id');
+            $this->db->query('SELECT manager_id FROM cinema WHERE cinema_id = :id');
             // Calls bind function from Database class in 'libraries' folder
-            $this->db->bind(':id', $manager_id);
+            $this->db->bind(':id', $cinema_id);
 
             // Calls single function from Database class in 'libraries' folder
             $row = $this->db->single();
+            $row = json_decode(json_encode($row), true);
 
             // Checks row to see if the row exists
-            if($this->db->rowCount() > 0) {
-                // Email found
-                return true;
+            if($row) {
+                // Manger found
+                return $row['manager_id'];
             }
             else {
                 // Email not found
-                return false;
+                return null;
             }
+        }
+
+        public function getManagerNameById($id) {
+            $this->db->query('SELECT managerNameById(:id) as manager_name FROM dual');
+            $this->db->bind(':id', $id);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['manager_name'];
+        }
+
+        public function getManagerEmailById($id) {
+            $this->db->query('SELECT managerEmailById(:id) as manager_email FROM dual');
+            $this->db->bind(':id', $id);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['manager_email'];
+        }
+
+        public function getManagerPhoneById($id) {
+            $this->db->query('SELECT managerPhoneById(:id) as manager_phone FROM dual');
+            $this->db->bind(':id', $id);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['manager_phone'];
+        }
+
+        public function getManagerAddressById($id) {
+            $this->db->query('SELECT managerAddressById(:id) as manager_address FROM dual');
+            $this->db->bind(':id', $id);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['manager_address'];
         }
 
 

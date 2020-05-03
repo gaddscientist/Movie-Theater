@@ -218,6 +218,57 @@ INSERT INTO manager VALUES (2002, 102, 'ldehaan@hotmail.com', '$2y$10$.G1n5xlzRD
 ---------------------------------------------------------------------
 -- Functions & Procedures
 ---------------------------------------------------------------------
+--Manager Functions
+DROP FUNCTION IF EXISTS managerNameById;
+DELIMITER //
+CREATE FUNCTION managerNameById(p_manager_id INT) RETURNS VARCHAR(255)
+BEGIN
+    DECLARE v_manager_name VARCHAR(255);
+    SELECT CONCAT(first_name, ' ', last_name) INTO v_manager_name FROM employee WHERE employee_id = p_manager_id;
+    RETURN v_manager_name;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS managerEmailById;
+DELIMITER //
+CREATE FUNCTION managerEmailById(p_manager_id INT) RETURNS VARCHAR(255)
+BEGIN
+    DECLARE v_manager_email VARCHAR(255);
+    SELECT email INTO v_manager_email FROM employee WHERE employee_id = p_manager_id;
+    RETURN v_manager_email;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS managerPhoneById;
+DELIMITER //
+CREATE FUNCTION managerPhoneById(p_manager_id INT) RETURNS VARCHAR(255)
+BEGIN
+    DECLARE v_manager_phone VARCHAR(255);
+    SELECT phone INTO v_manager_phone FROM employee WHERE employee_id = p_manager_id;
+    RETURN v_manager_phone;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS addressIdByManagerId;
+DELIMITER //
+CREATE FUNCTION addressIdByManagerId(p_manager_id INT) RETURNS INT
+BEGIN
+    declare v_address_id INT(6);
+    SELECT address_id INTO v_address_id FROM employee WHERE employee_id = p_manager_id; 
+    RETURN v_address_id;
+END//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS managerAddressById;
+DELIMITER //
+CREATE FUNCTION managerAddressById(p_manager_id INT) RETURNS VARCHAR(255)
+BEGIN
+    declare v_manager_address VARCHAR(255);
+    SELECT CONCAT(street_address, ' ', city, ', ', state, ' ', zip) INTO v_manager_address FROM address WHERE address_id = addressIDByManagerId(p_manager_id);
+    RETURN v_manager_address;
+END//
+DELIMITER ; 
+
 -- Daily Functions
 DROP FUNCTION IF EXISTS dailyTickets;
 DELIMITER //
@@ -300,51 +351,3 @@ BEGIN
     RETURN v_num_transactions;
 END//
 DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
--- Removed because they're useless
-CREATE TABLE supervisor (
-    supervisor_id INT(10),
-    Worker (int(10)),
-PRIMARY KEY (Boss),
-PRIMARY KEY (Worker),
-FORIEGN KEY (Boss) References (Employee(ID)),
-FORIEGN KEY (Worker) References (Employee(ID))
-);
-
-
-
-CREATE TABLE Favorite(
-Person (int(10)),
-Cinema (int(10)),
-PRIMARY KEY (Person),
-FORIEGN KEY (Person) References (Person(ID)),
-FORIEGN KEY (Cinema) References (Cinema(ID))
-);
-
-Create Table works (
-    employee_id (int(10)),
-    Cinema (int(10)),
-    PRIMARY KEY (employee_id),
-    FORIEGN KEY (employee_id) References employee (employee_id),
-    FORIEGN KEY (cinema) References cinema (cinema_id)
-);
-
-CREATE TABLE person (
-    person_id INT(6) AUTO_INCREMENT,
-    first_name VARCHAR(256) NOT NULL,
-    last_name VARCHAR(256) NOT NULL,
-    email VARCHAR(256) NOT NULL,
-    Phone VARCHAR(20) NOT NULL,
-    Birthdate DATE NOT NULL,
-    PRIMARY KEY (person_id)
-);

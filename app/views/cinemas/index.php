@@ -40,12 +40,6 @@
                             <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>"><i class="fa fa-edit"></i></a></td>
                         </tr>
                     <?php endforeach; ?>
-
-                    
-
-
-
-
                 </table>
             </div>
             <div class="mx-2">
@@ -63,14 +57,23 @@
                 <div class="col card border-dark">
                     <div class="card-container">
                         <p class="card-header mb-2 text-center border-dark"><strong>Manager</strong></p>
-                        <div class="manager-container d-flex justify-content-center">
-                            <div class="rounded-circle overflow-hidden mx-2 custom-circle-image">
-                                <img class="w-100 h-100" src="<?php echo URLROOT; ?>/public/img/profile-icon.png" alt="Card image cap">
+                        <div class="manager-container">
+                            <div class="d-flex justify-content-center">
+                                <div class="rounded-circle overflow-hidden mx-2 custom-circle-image">
+                                    <img class="w-100 h-100" src="<?php echo URLROOT; ?>/public/img/profile-icon.png" alt="Card image cap">
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <h5 class="ml-4 mt-3 mb-1 mt-4"><?php echo $data['manager']['name']; ?></h5>
+                                    <p class="text-center"><small class="font-weight-bold ml-4">Manager ID: <?php echo $data['manager']['id'] ?></small></p>
+                                </div>
                             </div>
-                            <div class="d-flex flex-column">
-                                <h5 class="ml-4 mt-3 mb-1 mt-4">Bryan Hilldrup</h5>
-                                <p class="text-center"><small class="font-weight-bold ml-4">Manager ID: 300</small></p>
-                            </div>
+
+                            <ul class="list-group list-group-flush mb-5 mt-4">
+                                <li class="list-group-item pl-0"><span class="font-weight-bold">Email: </span><?php echo $data['manager']['email']; ?></li>
+                                <li class="list-group-item pl-0"><span class="font-weight-bold">Phone: </span><?php echo $data['manager']['phone']; ?></li>
+                                <li class="list-group-item border-bottom pl-0"><span class="font-weight-bold">Address: </span><small><?php echo $data['manager']['address']; ?></small></li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>

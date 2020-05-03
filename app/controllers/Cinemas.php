@@ -25,6 +25,14 @@
 
             $data = [
                 'cinema_id' => $id,
+                'employees' => '',
+                'manager' => array(
+                    'id' => '',
+                    'name' => '',
+                    'email' =>'',
+                    'phone' => '',
+                    'address' => ''
+                ),
                 'finances' => array (
                     'date_chosen' => trim($_POST['date_chosen']),
                     'total_tickets' => '',
@@ -43,6 +51,15 @@
                     'transactions' => ''
                 )
             ];
+
+            // Employees
+            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
+
+            // Manager
+            $data['manager_id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
+            $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
+            $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
+            $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
 
             // Daily finances
             $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
@@ -65,6 +82,14 @@
 
             $data = [
                 'cinema_id' => $id,
+                'employees' => '',
+                'manager' => array(
+                    'id' => '',
+                    'name' => '',
+                    'email' =>'',
+                    'phone' => '',
+                    'address' => ''
+                ),
                 'finances' => array (
                     'date_chosen' => date("Y-m-d"),
                     'total_tickets' => '',
@@ -81,9 +106,18 @@
                     'CASH' => '',
                     'GIFT' => '',
                     'transactions' => ''
-                ),
-                'employees' => ''
+                )
             ];
+            
+            // Employees
+            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
+            
+            // Manager
+            $data['manager']['id'] = $this->cinemaModel->getManagerIdByCinemaId($data['cinema_id']);
+            $data['manager']['name'] = $this->cinemaModel->getManagerNameById($data['manager']['id']);
+            $data['manager']['email'] = $this->cinemaModel->getManagerEmailById($data['manager']['id']);
+            $data['manager']['phone'] = $this->cinemaModel->getManagerPhoneById($data['manager']['id']);
+            $data['manager']['address'] = $this->cinemaModel->getManagerAddressById($data['manager']['id']);
 
             // Daily finances
             $data['finances']['total_tickets'] = $this->cinemaModel->getTotalDailyTickets($data['cinema_id'], $data['finances']['date_chosen']);
@@ -100,9 +134,6 @@
             $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
             $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
             $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
-            
-            // Employees
-            $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
         }
 
         if(!isset($data['finances']['total_tickets'])) {
@@ -129,10 +160,6 @@
         
        
 //edit employee
-
-
-
-
 
         //add employeee
         public function modify($id) {
