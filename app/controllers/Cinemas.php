@@ -106,8 +106,7 @@
                         'cinema_id' => $id,
                         'employees'=>$employees
                     ];       
-                    $this->view('cinema/modify', $data);
-                }
+                    $this->view('cinemas/modify', $data);                }
             
         }
         
