@@ -24,14 +24,14 @@ CREATE TABLE address (
 
 INSERT INTO address VALUES ( 1000, '8217 Annadale St.', 'Mobile', 'AL', '36605');
 INSERT INTO address VALUES ( 1001, '592 Cedar Street', 'Madison Heights', 'MI', '48071');
-INSERT INTO address VALUES ( 1002, '820 NW. Country Club Lane', 'Cheshire', 'CT', '06410');
+INSERT INTO address VALUES ( 1002, '820 NW. Country Lane', 'Cheshire', 'CT', '06410');
 INSERT INTO address VALUES ( 1003, '9599 Somerset Street', 'Sicklerville', 'NJ', '08081');
 INSERT INTO address VALUES ( 1004, '7364 Mechanic Drive Lake', 'Jackson', 'TX', '77566');
 INSERT INTO address VALUES ( 1005, '30 Poor House St.', 'Alabaster', 'AL', '35007');
 INSERT INTO address VALUES ( 1006, '8286 Saxon Road', 'Omaha', 'NE', '68107'); 
-INSERT INTO address VALUES ( 1007, '7232 W. Railroad Street Huntington', 'Station', 'NY', '11746');
+INSERT INTO address VALUES ( 1007, '7232 Railroad Street', 'Huntington', 'NY', '11746');
 INSERT INTO address VALUES ( 1008, '95 Fairground Rd.', 'Troy', 'NY', '12180');
-INSERT INTO address VALUES ( 1009, '330 Magnolia Court Monroe', 'Township', 'NJ', '08831');
+INSERT INTO address VALUES ( 1009, '330 Magnolia Dr.', 'Monroe Township', 'NJ', '08831');
 
 
 CREATE TABLE cinema (
@@ -97,25 +97,6 @@ INSERT INTO customer VALUES ( 502, 'Diana', 'Lorentz', 'DLORENTZ@hotmail.com', '
 INSERT INTO customer VALUES ( 503, 'Nancy', 'Greenberg', 'NGREENBE@yahoo.com', '515.124.4569', STR_TO_DATE('12-11-1959', '%d-%m-%Y'), 3003, STR_TO_DATE('17-08-2002', '%d-%m-%Y'), 0, NULL);
 INSERT INTO customer VALUES ( 504, 'Daniel', 'Faviet', 'DFAVIET@gmail.com', '515.124.4169', STR_TO_DATE('17-09-1998', '%d-%m-%Y'), 3004, STR_TO_DATE('16-08-2002', '%d-%m-%Y'), 1090, 2003);
 
-CREATE TABLE theater (
-    cinema_id INT(10),
-    theater_number INT(2),
-    capacity INT(3),
-    PRIMARY KEY (cinema_id, theater_number),
-    FOREIGN KEY (cinema_id) References cinema (cinema_id)
-);
-
-INSERT INTO theater VALUES ( 2000, 01, 100 );
-INSERT INTO theater VALUES ( 2000, 02, 150 );
-INSERT INTO theater VALUES ( 2000, 03, 170 );
-INSERT INTO theater VALUES ( 2000, 04, 190 );
-INSERT INTO theater VALUES ( 2001, 01, 80 );
-INSERT INTO theater VALUES ( 2001, 02, 170 );
-INSERT INTO theater VALUES ( 2003, 01, 120 );
-INSERT INTO theater VALUES ( 2003, 02, 80 );
-INSERT INTO theater VALUES ( 2003, 03, 72 );
-INSERT INTO theater VALUES ( 2004, 01, 100 );
-
 CREATE TABLE movie (
     movie_id INT(6) AUTO_INCREMENT,
     movie_name VARCHAR(256) NOT NULL,
@@ -124,14 +105,21 @@ CREATE TABLE movie (
     rating_imdb DECIMAL(4, 2),
     director VARCHAR(30) NOT NULL,
     genre VARCHAR(20),
+    start_date DATE,
+    end_date DATE,
     PRIMARY KEY (movie_id)
 );
 
-INSERT INTO movie VALUES ( 4000, 'Leon: The Professional', 110, 'R', 8.5, 'Luc Besson', 'Action');
-INSERT INTO movie VALUES ( 4001, 'The Thing', 109, 'R', 8.1, 'John Carpenter', 'Horror');
-INSERT INTO movie VALUES ( 4002, 'Parasite', 132, 'R', 8.6, 'Bong Joon Ho', 'Thriller');
-INSERT INTO movie VALUES ( 4003, 'A Goofy Movie', 118, 'G', 6.8, 'Kevin Lima', 'Comedy');
-INSERT INTO movie VALUES ( 4004, 'Valley Uprising', 103, 'NR', 8.1, 'Peter Mortimer', 'Documentary');
+INSERT INTO movie VALUES ( 4000, 'Leon: The Professional', 110, 'R', 8.5, 'Luc Besson', 'Action', STR_TO_DATE('12-04-2020', '%d-%m-%Y'), STR_TO_DATE('17-05-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4001, 'The Thing', 109, 'R', 8.1, 'John Carpenter', 'Horror', STR_TO_DATE('29-04-2020', '%d-%m-%Y'), STR_TO_DATE('27-05-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4002, 'Parasite', 132, 'R', 8.6, 'Bong Joon Ho', 'Thriller', STR_TO_DATE('31-03-2020', '%d-%m-%Y'), STR_TO_DATE('09-05-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4003, 'A Goofy Movie', 118, 'G', 6.8, 'Kevin Lima', 'Comedy', STR_TO_DATE('03-05-2020', '%d-%m-%Y'), STR_TO_DATE('07-06-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4004, 'Valley Uprising', 103, 'NR', 8.1, 'Peter Mortimer', 'Documentary', STR_TO_DATE('20-04-2020', '%d-%m-%Y'), STR_TO_DATE('17-05-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4005, 'The Devils Double', 108, 'R', 8.7, 'Lee Tamahori', 'Drama', STR_TO_DATE('17-05-2020', '%d-%m-%Y'), STR_TO_DATE('17-07-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4006, 'Hellraiser', 93, 'R', 6.1, 'Clive Barker', 'Horror', STR_TO_DATE('27-05-2020', '%d-%m-%Y'), STR_TO_DATE('27-06-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4007, 'The Incredibles', 115, 'G', 9.3, 'Brad Bird', 'Animation', STR_TO_DATE('09-05-2020', '%d-%m-%Y'), STR_TO_DATE('09-07-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4008, 'A Goofy Movie', 118, 'G', 6.8, 'Kevin Lima', 'Animation', STR_TO_DATE('07-06-2020', '%d-%m-%Y'), STR_TO_DATE('07-07-2020', '%d-%m-%Y'));
+INSERT INTO movie VALUES ( 4009, 'The Orphanage', 101, 'R', 9.5, 'Guilliermo Del Toro', 'Thriller', STR_TO_DATE('17-05-2020', '%d-%m-%Y'), STR_TO_DATE('17-06-2020', '%d-%m-%Y'));
 
 CREATE TABLE shows (
     show_id INT(6) AUTO_INCREMENT,

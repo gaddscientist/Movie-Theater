@@ -186,42 +186,25 @@
             <p class="card-header text-center border-dark"><strong>Shows</strong></p>
             <div class="card-body">
                 <h5 class="card-title text-center">Current Movies</h5>
-                <ul class="list-group list-group-flush mb-5">
-                    <li class="list-group-item border-dark">Current Movie 1</li>
-                    <li class="list-group-item">Current Movie 2</li>
-                    <li class="list-group-item">Current Movie 3</li>
-                    <li class="list-group-item">Current Movie 4</li>
+                <ul class="list-group list-group-flush mb-5 border-top border-dark">
+                    <?php foreach($data['current_movies'] as $movie) : ?>
+                    <li class="list-group-item text-center">
+                        <a href="<?php echo URLROOT; ?>/cinemas/view_movie/<?php echo $data['cinema_id']; ?>/<?php echo $movie->movie_id; ?>">
+                        <?php echo $movie->movie_name; ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
                 <h5 class="card-title text-center">Upcoming Movies</h5>
-                <ul class="list-group list-group-flush mb-5">
-                    <li class="list-group-item border-dark">Upcoming Movie 1</li>
-                    <li class="list-group-item">Upcoming Movie 2</li>
-                    <li class="list-group-item">Upcoming Movie 3</li>
-                    <li class="list-group-item">Upcoming Movie 4</li>
+                <ul class="list-group list-group-flush mb-5 border-top border-dark">
+                    <?php foreach($data['upcoming_movies'] as $movie) : ?>
+                    <li class="list-group-item text-center">
+                        <a href="<?php echo URLROOT; ?>/cinemas/view_movie/<?php echo $data['cinema_id']; ?>/<?php echo $movie->movie_id; ?>">
+                        <?php echo $movie->movie_name; ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <div class="card-footer border-dark">
                 <a href="<?php echo URLROOT; ?>/cinemas/modify_movie" class="btn btn-success w-100">Add New Movie</a>
             </div>
         </div>
-        <!-- <div class="col">
-  <div class="card-columns d-flex flex-column justify-content-center">
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This is a longer card with shorter text.</p>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
     </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

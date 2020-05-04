@@ -224,4 +224,56 @@
             $result = $this->db->single();
             return $result;
         }
+
+        // Movie Queries
+        public function getCurrentMovies() {
+            $this->db->query('SELECT * from movie WHERE start_date <= CURDATE()');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getUpcomingMovies() {
+            $this->db->query('SELECT * from movie WHERE start_date > CURDATE()');
+            $results = $this->db->resultSet();
+            return $results;
+        }
+
+        public function getMovieById($id) {
+            $this->db->query('SELECT * FROM movie WHERE movie_id = :id');
+            $this->db->bind(':id', $id);
+            $result = $this->db->single();
+            return $result;
+        }
+
+        public function getMovieNameById($id) {
+            $this->db->query('SELECT movie_name FROM movie WHERE movie_id = :id');
+            $this->db->bind(':id', $id);
+            $result = json_decode(json_encode($this->db->single()), true);
+            return $result['movie_name'];
+        }
+
+         public function updateMovie($data){
+            $this->db->query('UPDATE movie SET `movie_name`=:movie_name, `duration`=:duration,`rating_mpaa`=:rating_mpaa, `rating_imdb`=:rating_imdb, `director`=:director, `genre`=:genre, `start_date`=:start_date, `end_date`=:end_date
+            WHERE `movie_id` = :movie_id');
+             //bind the values
+            //  $this->db->bind(':movie_name', $data['movie_name']);
+             $this->db->bind(':movie_name', getMovieNameById($data['movie_id']));
+             $this->db->bind(':duration', $data['duration']);
+             $this->db->bind(':rating_mpaa', $data['rating_mpaa']);
+             $this->db->bind(':rating_imdb', $data['rating_imdb']);
+             $this->db->bind(':director', $data['director']);
+             $this->db->bind(':genre', $data['genre']);
+             $this->db->bind(':start_date', $data['start_date']);
+             $this->db->bind(':end_date', $data['end_date']);
+             $this->db->bind(':movie_id', $data['movie_id']);
+             //execute
+             $this->db->execute();
+        }
+
+
+        public function deleteMovieById($id) {
+            $this->db->query('DELETE FROM movie WHERE movie_id = :id');
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+        }
     }

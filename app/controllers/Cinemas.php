@@ -64,7 +64,9 @@
                         'CASH' => '',
                         'GIFT' => '',
                         'transactions' => ''
-                    )
+                    ),
+                    'current_movies' => array(),
+                    'upcoming_movies' => array()
                 ];
 
                 // Employees
@@ -73,7 +75,6 @@
                 }
                 else {
                     $data['employees'] = $this->cinemaModel->getEmployees($data['cinema_id']);
-
                 }
 
                 // Manager
@@ -98,6 +99,10 @@
                 $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
                 $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
                 $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+
+                // Movie
+                $data['current_movies'] = $this->cinemaModel->getCurrentMovies();
+                $data['upcoming_movies'] = $this->cinemaModel->getUpcomingMovies();
 
             }
             else {
@@ -128,7 +133,9 @@
                         'CASH' => '',
                         'GIFT' => '',
                         'transactions' => ''
-                    )
+                    ),
+                    'current_movies' => array(),
+                    'upcoming_movies' => array()
                 ];
                 
                 // Employees
@@ -156,6 +163,10 @@
                 $data['monthly_finances']['CASH'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'CASH');
                 $data['monthly_finances']['GIFT'] = $this->cinemaModel->getMonthlySalesByType($data['cinema_id'], $data['finances']['date_chosen'], 'GIFT');
                 $data['monthly_finances']['transactions'] = $this->cinemaModel->getMonthlyTransactions($data['cinema_id'], $data['finances']['date_chosen']);
+
+                // Movie
+                $data['current_movies'] = $this->cinemaModel->getCurrentMovies();
+                $data['upcoming_movies'] = $this->cinemaModel->getUpcomingMovies();
             }
 
             if(!isset($data['finances']['total_tickets'])) {
@@ -397,6 +408,106 @@
             $this->cinemaModel->deleteEmployeeById($employee_id);
             redirect('cinemas/index/' . $cinema_id);
         }
+
+        // Movie
+        public function view_movie($cinema_id, $movie_id) {
+            $data = [
+                'cinema_id' => $cinema_id,
+                'movie_id' => $movie_id,
+                'movie' => array()
+            ];
+
+            $data['movie'] = $this->cinemaModel->getMovieById($data['movie_id']);
+
+            $this->view('cinemas/view_movie', $data);
+        }
+
+        public function edit_movie($cinema_id, $id) {
+             // Checks to see if form is being submitted or loaded initially
+             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+            
+                 // Initial data if POST request
+                 $data = [
+                     // Data for insert
+                    'movie_id' => $id,
+                    'movie' => array(),
+                    'cinema_id'=> $cinema_id,
+                    'movie_name' => trim($_POST['movie_name']),
+                    'duration' => trim($_POST['duration']),
+                    'rating_mpaa' => trim($_POST['rating_mpaa']),
+                    'rating_imdb' => trim($_POST['rating_imdb']),
+                    'director' =>  trim($_POST['director']),
+                    'genre' => trim($_POST['genre']),
+                    'start_date' => trim($_POST['start_date']),
+                    'end_date' => trim($_POST['end_date']),
+                    // Err meesages 
+                    'movie_name' => '',
+                    'duration_err' => '',
+                    'rating_mpaa_err' => '',
+                    'rating_imdb_err' => '',
+                    'director_err' => '',
+                    'genre_err' => '',
+                    'start_date_err'=> '',
+                    'end_date_err' => ''
+                ];
+                
+                // Update the movie 
+                $this->cinemaModel->updateMovie($data);
+                flash('emp_message', 'Movie Successfully Added');
+                
+                redirect('cinemas/index/' . $cinema_id . '/' . $id);
+            }
+            else {
+                // Initial data if GET request
+                $data=[
+                    'movie_id' => $id,
+                    'movie' => array(),
+                    'cinema_id'=> $cinema_id,
+                    'movie_name' => '',
+                    'duration' => '',
+                    'rating_mpaa' => '',
+                    'rating_imdb' => '',
+                    'director' =>  '',
+                    'genre' => '',
+                    'start_date' => '',
+                    'end_date' => '',
+                    // Err meesages 
+                    'movie_name' => '',
+                    'duration_err' => '',
+                    'rating_mpaa_err' => '',
+                    'rating_imdb_err' => '',
+                    'director_err' => '',
+                    'genre_err' => '',
+                    'start_date_err'=> '',
+                    'end_date_err' => ''
+                ];       
+
+
+                // If a employee_id is passed in the url, the view will auto load
+                if(isset($id)) {
+                    $data['movie'] = json_decode(json_encode($this->cinemaModel->getMovieById($id)), true);
+
+                    foreach($data['movie'] as $movie_field => $value) {
+                        $data[$movie_field] = $value;
+                    }
+
+                    $this->view('cinemas/edit_movie', $data);
+                }
+
+                $this->view('cinemas/edit_movie', $data);
+            }
+        }
+
+        public function delete_movie($cinema_id, $movie_id) {
+            $this->cinemaModel->deleteMovieById($movie_id);
+            redirect('cinemas/index/' . $cinema_id);
+        }
+
+
     }
 
    
