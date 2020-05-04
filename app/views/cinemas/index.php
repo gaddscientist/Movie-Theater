@@ -1,7 +1,4 @@
 <!-- Filler for cinema page -->
-
-
-
 <?php require APPROOT . '/views/inc/header.php'; ?>
     <h1 class="text-center">Dashboard</h1>
     <h6 class="text-center">VideoPlex - Store ID: <?php echo $data['cinema_id']; ?></h6>
@@ -29,15 +26,13 @@
                             <th scope="col">ID</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <!-- <th scope="col">Edit</th> -->
                         </tr>
                     </thead>
                     <?php foreach($data['employees'] as $employee) : ?>                     
                         <tr>
-                            <th scope="row"><?php echo $employee->employee_id?></th>
+                            <th scope="row"><a href="<?php echo URLROOT; ?>/cinemas/view_employee/<?php echo $data['cinema_id']; ?>/<?php echo $employee->employee_id; ?>"><?php echo $employee->employee_id?></a></th>
                             <td class="text-center"><?php echo $employee->first_name?></td>
                             <td class="text-center"><?php echo $employee->last_name?></td>
-                            <!-- <td class="text-center"><a href="<?php echo URLROOT; ?>/cinemas/modify/<?php echo $data['cinema_id']; ?>"><i class="fa fa-edit"></i></a></td> -->
                         </tr>
                     <?php endforeach; ?>
                 </table>

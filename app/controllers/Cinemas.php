@@ -182,7 +182,7 @@
         
        
         //add employeee
-        public function modify($cinema_id, $manager_id) {
+        public function modify($cinema_id, $id) {
             // Checks to see if form is being submitted or loaded initially
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Process form
@@ -193,6 +193,7 @@
                  // Initial data if POST request
                  $data = [
                      // Data for insert
+                     'employee_id' => '',
                     'first_name' => trim($_POST['first_name']),
                     'last_name' => trim($_POST['last_name']),
                     'email' => trim($_POST['email']),
@@ -202,7 +203,7 @@
                     'salary' =>  trim($_POST['salary']),
                     // 'hire_date' => trim($_POST['hire_date']), CHANGE TO CURDATE() in SQL
                     'ssn' => trim($_POST['ssn']),
-                    'manager_id' => $manager_id,
+                    'manager_id' => $id,
                     'street_address' => trim($_POST['street_address']),
                     'city' => trim($_POST['city']),
                     'state' => trim($_POST['state']),
@@ -238,25 +239,27 @@
                 $this->cinemaModel->addEmployee($data);
                 flash('emp_message', 'Employee Successfully Added');
                 
-                redirect('cinemas/index/' . $cinema_id . '/' . $manager_id);
+                redirect('cinemas/index/' . $cinema_id . '/' . $id);
             }
             else {
                 // Initial data if GET request
                 $data=[
+                    'employee_id' => '',
+                    'employee' => array(),
+                    'address' => array(),
+                    'address_id' => '',
                     'first_name' => '',
                     'last_name' => '',
                     'email' => '',
                     'phone' => '',
                     'birthdate' => '',
                     'salary' =>  '',
-                    'hire_date' => '',
                     'ssn' => '',
-                    'cinema_id' => $cinema_id, 
-                    'manager_id' => $manager_id,
                     'street_address' => '',
                     'city' => '',
                     'state' => '',
                     'zip' => '',
+                    'cinema_id' => $cinema_id,
                     // Err meesages 
                     'first_name_err' => '',
                     'last_name_err' => '',
@@ -273,6 +276,126 @@
 
                 $this->view('cinemas/modify', $data);
             }
+        }
+
+        public function edit_employee($cinema_id, $id) {
+             // Checks to see if form is being submitted or loaded initially
+             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+            
+                 // Initial data if POST request
+                 $data = [
+                     // Data for insert
+                    'employee_id' => $id,
+                    'first_name' => trim($_POST['first_name']),
+                    'last_name' => trim($_POST['last_name']),
+                    'email' => trim($_POST['email']),
+                    'phone' => trim($_POST['phone']),
+                    'store_number'=> $cinema_id,
+                    'birthdate' => trim($_POST['birthdate']),
+                    'salary' =>  trim($_POST['salary']),
+                    // 'hire_date' => trim($_POST['hire_date']), CHANGE TO CURDATE() in SQL
+                    'ssn' => trim($_POST['ssn']),
+                    'manager_id' => '',
+                    'street_address' => trim($_POST['street_address']),
+                    'city' => trim($_POST['city']),
+                    'state' => trim($_POST['state']),
+                    'zip' => trim($_POST['zip']),
+                    // Err meesages 
+                    'first_name_err' => '',
+                    'last_name_err' => '',
+                    'email_err' => '',
+                    'phone_err' => '',
+                    'birthdate_err' => '',
+                    'salary_err' => '',
+                    'ssn_err'=> '',
+                    'street_address_err' => '',
+                    'city_err' => '',
+                    'state_err' => '',
+                    'zip_err' => ''
+                ];
+                
+                // Update the employee
+                $this->cinemaModel->updateEmployee($data);
+                flash('emp_message', 'Employee Successfully Added');
+                
+                redirect('cinemas/index/' . $cinema_id . '/' . $id);
+            }
+            else {
+                // Initial data if GET request
+                $data=[
+                    'employee_id' => $id,
+                    'employee' => array(),
+                    'address' => array(),
+                    'address_id' => '',
+                    'first_name' => '',
+                    'last_name' => '',
+                    'email' => '',
+                    'phone' => '',
+                    'birthdate' => '',
+                    'salary' =>  '',
+                    'ssn' => '',
+                    'street_address' => '',
+                    'city' => '',
+                    'state' => '',
+                    'zip' => '',
+                    'cinema_id' => $cinema_id,
+                    // Err meesages 
+                    'first_name_err' => '',
+                    'last_name_err' => '',
+                    'email_err' => '',
+                    'phone_err' => '',
+                    'birthdate_err' => '',
+                    'salary_err' => '',
+                    'ssn_err'=> '',
+                    'street_address_err' => '',
+                    'city_err' => '',
+                    'state_err' => '',
+                    'zip_err' => ''
+                ];       
+
+                // If a employee_id is passed in the url, the view will auto load
+                if(isset($id)) {
+                    $data['employee'] = json_decode(json_encode($this->cinemaModel->getEmployeeById($id)), true);
+
+                    $data['address_id'] = $data['employee']['address_id'];
+                    $data['address'] = json_decode(json_encode($this->cinemaModel->getAddressByAddressId($data['address_id'])), true);
+                    foreach($data['employee'] as $employee_field => $value) {
+                        $data[$employee_field] = $value;
+                    }
+                    foreach($data['address'] as $address_field => $value) {
+                        $data[$address_field] = $value;
+                    }
+
+                    $this->view('cinemas/edit_employee', $data);
+                }
+
+                $this->view('cinemas/edit_employee', $data);
+            }
+        }
+
+        public function view_employee($cinema_id, $employee_id) {
+
+            $data = [
+                'cinema_id' => $cinema_id,
+                'employee_id' => $employee_id,
+                'employee' => array(),
+                'address_string' => ''
+            ];
+
+            $data['employee'] = $this->cinemaModel->getEmployeeById($data['employee_id']);
+            $data['address_string'] = $this->cinemaModel->getManagerAddressById($data['employee_id']);
+
+            $this->view('cinemas/view_employee', $data);
+
+        }
+
+        public function delete_employee($cinema_id, $employee_id) {
+            $this->cinemaModel->deleteEmployeeById($employee_id);
+            redirect('cinemas/index/' . $cinema_id);
         }
     }
 

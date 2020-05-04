@@ -208,7 +208,7 @@ Create Table manager (
     PRIMARY KEY (cinema_id),
     FOREIGN KEY (cinema_id) References cinema (cinema_id),
     FOREIGN KEY (manager_id) References cinema (manager_id),
-    FOREIGN KEY (email) References employee (email)
+    FOREIGN KEY (email) References employee (email) ON UPDATE CASCADE
 );
 
 INSERT INTO manager VALUES (2000, 100, 'sking@gmail.com', '$2y$10$Oy5pCdJirvyFTgx.mU8npeLB/ew2L42wn895FY9mdNYIYxATu2Y1K');
@@ -268,7 +268,6 @@ BEGIN
     RETURN v_manager_address;
 END//
 DELIMITER ; 
-
 
 -- Daily Functions
 DROP FUNCTION IF EXISTS dailyTickets;
