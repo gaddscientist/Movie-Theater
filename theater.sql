@@ -32,6 +32,21 @@ INSERT INTO address VALUES ( 1006, '8286 Saxon Road', 'Omaha', 'NE', '68107');
 INSERT INTO address VALUES ( 1007, '7232 Railroad Street', 'Huntington', 'NY', '11746');
 INSERT INTO address VALUES ( 1008, '95 Fairground Rd.', 'Troy', 'NY', '12180');
 INSERT INTO address VALUES ( 1009, '330 Magnolia Dr.', 'Monroe Township', 'NJ', '08831');
+INSERT INTO address VALUES ( 1010, '9 Columbia Drive', 'Anaheim', 'CA', '92806');
+INSERT INTO address VALUES ( 1011, '49 School Lane', 'Tonawanda', 'NY', '14150');
+INSERT INTO address VALUES ( 1012, '59 Cardinal Street', 'Sacramento', 'CA', '95820');
+INSERT INTO address VALUES ( 1013, '795 New Saddle Dr.', 'Rowlett', 'TX', '');
+INSERT INTO address VALUES ( 1014, '572 Summer Court', 'Meadville', 'PA', '16335');
+INSERT INTO address VALUES ( 1015, '392 Harbour Dr.', 'Waukesha', 'WI', '53186');
+INSERT INTO address VALUES ( 1016, '2 Sunnyslope Lane', 'Fargo', 'ND', '58078');
+INSERT INTO address VALUES ( 1017, '650 St Margarets Avenue', 'Chelsea', 'MA', '02150');
+INSERT INTO address VALUES ( 1018, '885 Rock Maple Ave.', 'Wallingford', 'CT', '06492');
+INSERT INTO address VALUES ( 1019, '8 Wood Ave.', 'Chippewa', 'WI', '54729');
+INSERT INTO address VALUES ( 1020, '9911 Primrose Court', 'Plattsburgh', 'NY', '12901');
+INSERT INTO address VALUES ( 1021, '696 Theatre Street ', 'Richardson', 'TX', '75080');
+INSERT INTO address VALUES ( 1022, '506 Bear Hill St.', 'Joliet', 'IL', '60435');
+INSERT INTO address VALUES ( 1023, '489 Pawnee St.', 'Fargo', 'ND', '58078');
+INSERT INTO address VALUES ( 1024, '47 Hill Ave.', 'Daphne', 'AL', '36526');
 
 
 CREATE TABLE cinema (
@@ -76,27 +91,6 @@ INSERT INTO employee VALUES ( 104, 'Bruce', 'Ernst', 'BERNST@gmail.com', '590.42
 
 ALTER TABLE cinema ADD (CONSTRAINT cine_mgr_fk FOREIGN KEY (manager_id) REFERENCES employee (employee_id));
 
-CREATE TABLE customer (
-    customer_id INT(6) AUTO_INCREMENT,
-    first_name VARCHAR(256) NOT NULL,
-    last_name VARCHAR(256) NOT NULL,
-    email VARCHAR(256) NOT NULL,
-    Phone VARCHAR(20) NOT NULL,
-    Birthdate DATE NOT NULL,
-    membership_number INT(6),
-    join_date DATE,
-    points INT(7) DEFAULT 0 NOT NULL,
-    favorite_cinema INT(6),
-    PRIMARY KEY (customer_id),
-    FOREIGN KEY (favorite_cinema) References cinema (cinema_id)
-);
-
-INSERT INTO customer VALUES ( 500, 'David', 'Austin', 'DAUSTIN@gmail.com', '590.423.4569', STR_TO_DATE('15-03-1992', '%d-%m-%Y'), 3000, STR_TO_DATE('25-06-2005', '%d-%m-%Y'), 4800, 2000);
-INSERT INTO customer VALUES ( 501, 'Valli', 'Pataballa', 'VPATABAL@hotmail.com', '590.423.4560', STR_TO_DATE('05-04-1975', '%d-%m-%Y'), 3001, STR_TO_DATE('05-02-2006', '%d-%m-%Y'), 0, 2001);
-INSERT INTO customer VALUES ( 502, 'Diana', 'Lorentz', 'DLORENTZ@hotmail.com', '590.423.5567', STR_TO_DATE('23-02-1982', '%d-%m-%Y'), 3002, STR_TO_DATE('07-02-2007', '%d-%m-%Y'), 3200, NULL);
-INSERT INTO customer VALUES ( 503, 'Nancy', 'Greenberg', 'NGREENBE@yahoo.com', '515.124.4569', STR_TO_DATE('12-11-1959', '%d-%m-%Y'), 3003, STR_TO_DATE('17-08-2002', '%d-%m-%Y'), 0, NULL);
-INSERT INTO customer VALUES ( 504, 'Daniel', 'Faviet', 'DFAVIET@gmail.com', '515.124.4169', STR_TO_DATE('17-09-1998', '%d-%m-%Y'), 3004, STR_TO_DATE('16-08-2002', '%d-%m-%Y'), 1090, 2003);
-
 CREATE TABLE movie (
     movie_id INT(6) AUTO_INCREMENT,
     movie_name VARCHAR(256) NOT NULL,
@@ -120,42 +114,6 @@ INSERT INTO movie VALUES ( 4006, 'Hellraiser', 93, 'R', 6.1, 'Clive Barker', 'Ho
 INSERT INTO movie VALUES ( 4007, 'The Incredibles', 115, 'G', 9.3, 'Brad Bird', 'Animation', STR_TO_DATE('09-05-2020', '%d-%m-%Y'), STR_TO_DATE('09-07-2020', '%d-%m-%Y'));
 INSERT INTO movie VALUES ( 4008, 'A Goofy Movie', 118, 'G', 6.8, 'Kevin Lima', 'Animation', STR_TO_DATE('07-06-2020', '%d-%m-%Y'), STR_TO_DATE('07-07-2020', '%d-%m-%Y'));
 INSERT INTO movie VALUES ( 4009, 'The Orphanage', 101, 'R', 9.5, 'Guilliermo Del Toro', 'Thriller', STR_TO_DATE('17-05-2020', '%d-%m-%Y'), STR_TO_DATE('17-06-2020', '%d-%m-%Y'));
-
-CREATE TABLE shows (
-    show_id INT(6) AUTO_INCREMENT,
-    cinema_id INT(6),
-    movie_id INT(6),
-    start_time TIME,
-    show_date DATE,
-    num_tickets INT(3),
-    PRIMARY KEY (show_id),
-    FOREIGN KEY (cinema_id) References cinema (cinema_id),
-    FOREIGN KEY (movie_id) References movie (movie_id)
-);
-
-INSERT INTO shows VALUES ( 6000, 2000, 4000, '21:30', STR_TO_DATE('18-03-2020', '%d-%m-%Y'), 100);
-INSERT INTO shows VALUES ( 6001, 2000, 4000, '23:30', STR_TO_DATE('12-03-2020', '%d-%m-%Y'), 120);
-INSERT INTO shows VALUES ( 6002, 2003, 4003, '20:00', STR_TO_DATE('29-03-2020', '%d-%m-%Y'), 130);
-INSERT INTO shows VALUES ( 6003, 2000, 4002, '19:00', STR_TO_DATE('03-04-2020', '%d-%m-%Y'), 110);
-INSERT INTO shows VALUES ( 6004, 2004, 4004, '17:20', STR_TO_DATE('08-05-2020', '%d-%m-%Y'), 80);
-
-CREATE TABLE ticket (
-    ticket_id INT(6) AUTO_INCREMENT,
-    show_id INT(6),
-    start_time TIME,
-    price DECIMAL(4, 2),
-    ticket_type Char(6),
-    point_value INT(2),
-    PRIMARY KEY (ticket_id),
-    FOREIGN KEY (show_id) References shows (show_id)
-);
-
-INSERT INTO ticket VALUES ( 7000, 6001, '23:30', 15.00, 'REG', 30);
-INSERT INTO ticket VALUES ( 7001, 6002, '20:00', 10.00, 'SEN', 30);
-INSERT INTO ticket VALUES ( 7002, 6001, '23:30', 8.00, 'CHLD', 15);
-INSERT INTO ticket VALUES ( 7003, 6003, '19:00', 15.00, 'REG', 30);
-INSERT INTO ticket VALUES ( 7004, 6004, '17:20', 10.00, 'REG', 20);
-
 
 CREATE TABLE transaction (
     transaction_id INT(6) AUTO_INCREMENT,
