@@ -89,7 +89,51 @@ INSERT INTO employee VALUES ( 102, 'Lex', 'De Haan', 'LDEHAAN@hotmail.com', '515
 INSERT INTO employee VALUES ( 103, 'Alexander', 'Hunold', 'AHUNOLD@protonmail.com', '590.423.4567', STR_TO_DATE('22-08-1980', '%d-%m-%Y'), 9000, STR_TO_DATE('03-01-2006', '%d-%m-%Y'), '558326446', 1003, 2002, 102);
 INSERT INTO employee VALUES ( 104, 'Bruce', 'Ernst', 'BERNST@gmail.com', '590.423.4568', STR_TO_DATE('12-04-1987', '%d-%m-%Y'), 6000, STR_TO_DATE('21-05-2007', '%d-%m-%Y'), '355795362', 1004, 2000, 103);
 
+
+INSERT INTO employee VALUES ( NULL, 'James', 'Kirk', 'JKIRK@gmail.com', '516.103.4567', STR_TO_DATE('07-10-1962', '%d-%m-%Y'), 24050, STR_TO_DATE('17-06-2003', '%d-%m-%Y'), '123758359', 1010, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Donald', 'Duck', 'Duck@gmail.com', '515.199.4568', STR_TO_DATE('17-03-1978', '%d-%m-%Y'), 12000, STR_TO_DATE('21-09-2005', '%d-%m-%Y'), '578356985', 1011, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Bob', 'Haan', 'HAAN@hotmail.com', '512.123.4569', STR_TO_DATE('08-05-1969', '%d-%m-%Y'), 12000, STR_TO_DATE('13-01-2001', '%d-%m-%Y'), '624539668', 1012, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Alexa', 'Huna', 'Huna@protonmail.com', '190.423.4567', STR_TO_DATE('22-08-1980', '%d-%m-%Y'), 19000, STR_TO_DATE('03-01-2006', '%d-%m-%Y'), '558326446', 1013, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Cloud', 'Strife', 'Strife@gmail.com', '590.455.4568', STR_TO_DATE('12-04-1987', '%d-%m-%Y'), 16000, STR_TO_DATE('21-05-2007', '%d-%m-%Y'), '355795362', 1014, 2001, 101);
+
+
+INSERT INTO employee VALUES ( NULL, 'Jane', 'Crane', 'Crna@gmail.com', '515.104.4567', STR_TO_DATE('07-01-1972', '%d-%m-%Y'), 23250, STR_TO_DATE('12-01-2013', '%d-%m-%Y'), '123752359', 1015, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'James', 'Doohan', 'Doo@gmail.com', '515.119.4568', STR_TO_DATE('17-03-1988', '%d-%m-%Y'), 12000, STR_TO_DATE('21-02-2009', '%d-%m-%Y'), '574446985', 1016, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Bob', 'Hardy', 'Hardy@hotmail.com', '599.123.4569', STR_TO_DATE('08-03-1999', '%d-%m-%Y'), 10300, STR_TO_DATE('13-04-2005', '%d-%m-%Y'), '624123668', 1017, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Alexa', 'Rune', 'Rune@protonmail.com', '192.423.4567', STR_TO_DATE('22-08-1965', '%d-%m-%Y'), 19800, STR_TO_DATE('05-01-2016', '%d-%m-%Y'), '558876446', 1018, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Rias', 'Grem', 'Grem@gmail.com', '510.465.4568', STR_TO_DATE('10-04-1997', '%d-%m-%Y'), 16080, STR_TO_DATE('21-05-2007', '%d-%m-%Y'), '155795362', 1019, 2001, 101);
+
+
+INSERT INTO employee VALUES ( NULL, 'Bulma', 'Brief', 'Breif@gmail.com', '515.104.4567', STR_TO_DATE('07-03-1972', '%d-%m-%Y'), 22250, STR_TO_DATE('12-01-2013', '%d-%m-%Y'), '123744359', 1020, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Goku', 'Kakorot', 'goku@gmail.com', '515.119.4568', STR_TO_DATE('17-03-1988', '%d-%m-%Y'), 12000, STR_TO_DATE('21-02-2009', '%d-%m-%Y'), '574554985', 1021, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'RON', 'Wealsly', 'ron@hotmail.com', '599.123.4569', STR_TO_DATE('08-04-1999', '%d-%m-%Y'), 12300, STR_TO_DATE('13-04-2005', '%d-%m-%Y'), '624124668', 1022, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'FROG', 'Rune', 'Run@protonmail.com', '192.423.4567', STR_TO_DATE('22-09-1965', '%d-%m-%Y'), 29800, STR_TO_DATE('05-01-2016', '%d-%m-%Y'), '958876446', 1023, 2001, 101);
+INSERT INTO employee VALUES ( NULL, 'Wert', 'Gret', 'Grey@gmail.com', '510.465.4568', STR_TO_DATE('10-01-1997', '%d-%m-%Y'), 16081, STR_TO_DATE('21-05-2007', '%d-%m-%Y'), '95579362', 1024, 2001, 101);
+
+
 ALTER TABLE cinema ADD (CONSTRAINT cine_mgr_fk FOREIGN KEY (manager_id) REFERENCES employee (employee_id));
+
+CREATE TABLE customer (
+    customer_id INT(6) AUTO_INCREMENT,
+    first_name VARCHAR(256) NOT NULL,
+    last_name VARCHAR(256) NOT NULL,
+    email VARCHAR(256) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Birthdate DATE NOT NULL,
+    membership_number INT(6),
+    join_date DATE,
+    points INT(7) DEFAULT 0 NOT NULL,
+    favorite_cinema INT(6),
+    PRIMARY KEY (customer_id),
+    FOREIGN KEY (favorite_cinema) References cinema (cinema_id)
+);
+
+INSERT INTO customer VALUES ( 500, 'David', 'Austin', 'DAUSTIN@gmail.com', '590.423.4569', STR_TO_DATE('15-03-1992', '%d-%m-%Y'), 3000, STR_TO_DATE('25-06-2005', '%d-%m-%Y'), 4800, 2000);
+INSERT INTO customer VALUES ( 501, 'Valli', 'Pataballa', 'VPATABAL@hotmail.com', '590.423.4560', STR_TO_DATE('05-04-1975', '%d-%m-%Y'), 3001, STR_TO_DATE('05-02-2006', '%d-%m-%Y'), 0, 2001);
+INSERT INTO customer VALUES ( 502, 'Diana', 'Lorentz', 'DLORENTZ@hotmail.com', '590.423.5567', STR_TO_DATE('23-02-1982', '%d-%m-%Y'), 3002, STR_TO_DATE('07-02-2007', '%d-%m-%Y'), 3200, NULL);
+INSERT INTO customer VALUES ( 503, 'Nancy', 'Greenberg', 'NGREENBE@yahoo.com', '515.124.4569', STR_TO_DATE('12-11-1959', '%d-%m-%Y'), 3003, STR_TO_DATE('17-08-2002', '%d-%m-%Y'), 0, NULL);
+INSERT INTO customer VALUES ( 504, 'Daniel', 'Faviet', 'DFAVIET@gmail.com', '515.124.4169', STR_TO_DATE('17-09-1998', '%d-%m-%Y'), 3004, STR_TO_DATE('16-08-2002', '%d-%m-%Y'), 1090, 2003);
+
 
 CREATE TABLE movie (
     movie_id INT(6) AUTO_INCREMENT,
@@ -133,17 +177,17 @@ INSERT INTO transaction VALUES ( 8001, 2, 22.37, 2003, 501, 'CASH', STR_TO_DATE(
 INSERT INTO transaction VALUES ( 8002, 8, 102.98, 2002, 502, 'GIFT', STR_TO_DATE('03-04-2020', '%d-%m-%Y')); 
 INSERT INTO transaction VALUES ( 8003, 1, 15.23, 2002, 504, 'CREDIT', STR_TO_DATE('08-05-2020', '%d-%m-%Y'));
 INSERT INTO transaction VALUES ( 8004, 5, 80.27, 2001, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8006, 1, 10.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8007, 2, 20.27, 2000, 503, 'GIFT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8008, 3, 40.27, 2000, 503, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8009, 2, 27.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8010, 3, 37.27, 2000, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8011, 5, 88.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8012, 6, 94.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8013, 5, 83.27, 2000, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8014, 6, 93.27, 2000, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8015, 4, 70.27, 2000, 504, 'GIFT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
-INSERT INTO transaction VALUES ( 8016, 5, 80.27, 2000, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8006, 1, 10.27, 2001, 503, 'CASH', STR_TO_DATE('04-05-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8007, 2, 20.27, 2001, 503, 'GIFT', STR_TO_DATE('03-05-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8008, 3, 40.27, 2001, 503, 'CREDIT', STR_TO_DATE('03-05-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8009, 2, 27.27, 2001, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8010, 3, 37.27, 2001, 503, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8011, 5, 88.27, 2001, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8012, 6, 94.27, 2001, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8013, 5, 83.27, 2001, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8014, 6, 93.27, 2001, 504, 'CREDIT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8015, 4, 70.27, 2001, 504, 'GIFT', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
+INSERT INTO transaction VALUES ( 8016, 5, 80.27, 2001, 504, 'CASH', STR_TO_DATE('29-03-2020', '%d-%m-%Y'));
 
 
 Create Table manager (
