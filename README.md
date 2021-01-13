@@ -1,4 +1,4 @@
-# Movie-Theater
+# Movie Theater Manager
 
 This project was done for my college databases class to demonstrate knowledge in creating a database and interaction via SQL
 functions/queries.  
@@ -17,28 +17,38 @@ This project simulates an application that a manager of a movie theater would us
   - Ability to create and add new employees as well as movies to a given location  
   - Ability to track financial transactions for a given day or month  
   - Additional functionality limited to chain owner to add new managers and store locations  
+<br />
+<br />
 
 ## Screenshots
 
+#### This is an example of the managers dashboard for their location.  
+<kbd>
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/dashboard.png" width="800">  
+</kbd>
+<br /><br /><br />
 
-dashboard.png  
-This is an example of the managers dashboard for their location.  
+#### These images show an employees information as well as the interface for editing their information.  
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/employee_card.png" width="398">&nbsp;&nbsp;
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/edit_employee.png" width="398">
+<br />
+**_Note:_ When adding an employee the same form would be seen.**  
+<br /><br /><br />
 
+#### These images show information about a given movie as well as the interface for editing a movie.  
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/edit_movie.png" width="398">&nbsp;&nbsp;
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/movie_card.png" width="398">
+<br />
+**_Note:_ When adding an movie the same form would be seen.**  
+<br /><br /><br />
 
-employee_card.png  
-edit_employee.png  
-These images show an employees information as well as the interface for editing their information.  
-*Note* When adding an employee the same form would be seen.  
+#### This is the owners initial dashboard where they would be able to choose a given location to see information about.  
+<kbd>
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/cinemas.png" width="800">
+</kbd>
+<br /><br /><br />
 
-
-movie_card.png  
-edit_movie.png  
-These images show information about a given movie as well as the interface for editing a movie.  
-*Note* When adding a movie the same form would be seen.  
-
-
-cinemas.png  
-This is the owners initial dashboard where they would be able to choose a given location to see information about.  
-
-add_cinema.png  
-This would be the form the owner would use to create a new theater location.  
+#### This is the form the owner would use to create a new theater location.  
+<kbd>
+<img src="https://github.com/hilldrupbf/Movie-Theater/blob/master/img/add_cinema.png" width="800">
+</kbd>
